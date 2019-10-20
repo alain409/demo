@@ -1,0 +1,18 @@
+pipeline{
+//l'endroit et la façon dont telles exécuté la job
+agent any //regrde les agents qui sont à ta disposition et tu le signe la job
+//ici on n'est pas obligé de spécifier le checkout car il va le faire d'une manière automatique 
+stages{
+  stage('Build'){
+  //on est obligé de mettre des states
+  steps{
+   sh 'C:\Users\alide\apache-maven-3.6.2\bin\mvn clean install'
+  }  
+   stage('Test'){
+  //on est obligé de mettre des states
+  steps{
+   sh 'C:\Users\alide\apache-maven-3.6.2\bin\mvn test'
+  } 
+  }
+}
+}
