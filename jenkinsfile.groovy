@@ -4,29 +4,31 @@ def runStage( pNamespace, pTagImage ) {
 //========= YOU CAN EDIT HERE :) ================
 //===============================================
 
-  //stage ('build jar') {
-  //  dir ('app') {
-  //    //
-  //  }
-  //}
+    SONAR_QUBE=false
 
-  //stage ('static code analysis') {
-  //  dir ('app') {
-  //    //
-  //  }
-  //}
+    stage ('build jar') {
+        dir ('app') {
+            sh "./mvnw clean package spring-boot:repackage"
+        }
+    }
 
-  //stage ('static security analysis') {
-  //  dir ('app') {
-  //    //
-  //  }
-  //}
+    //stage ('static code analysis') {
+    //  dir ('app') {
+    //    //
+    //  }
+    //}
 
-  //stage ('unit tests') {
-  //  dir ('app') {
-  //    //
-  //  }
-  //}
+    //stage ('static security analysis') {
+    //  dir ('app') {
+    //    //
+    //  }
+    //}
+
+    /*stage ('unit tests') {
+        dir ('app') {*/
+         //   sh('./mvnw test')
+       // }
+   // }
 
 //===============================================
 //========= DO NOT EDIT BELOW THIS BOX ==========
