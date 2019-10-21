@@ -12,7 +12,7 @@ import java.io.InputStream;
 @Configuration
 @Component("pageProperties")
 public class ServiceProperties {
-
+    //Méthode pour récupérer un fichier du répertoire resources
     public String getFileJson(){
 
         Resource resource = new ClassPathResource("template-file-diagnosticPage.json");
