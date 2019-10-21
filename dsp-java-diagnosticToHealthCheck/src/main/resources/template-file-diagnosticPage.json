@@ -1,0 +1,23 @@
+[
+  {
+    "name": "espaceConseiller",
+    "sector": "Assurances individuelles",
+    "type": "Diagnostic",
+    "url": "https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante",
+    "endPoint": "advisorSpace"
+  },
+  {
+     "name": "cap-courtier",
+      "sector": "Assurances individuelles",
+      "type": "Diagnostic",
+      "url": "https://services.lacapitale.com/cap-courtier/nagios",
+      "endPoint": "capCourtier"
+   },
+{
+     "name": "ec-epargne",
+      "sector": "Services individuelles",
+      "type": "Diagnostic",
+      "url": "https://espaceconseiller.lacapitale.com/epargne/testSante",
+      "endPoint": "ecEpargne"
+   }
+]
