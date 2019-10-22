@@ -1,0 +1,8 @@
+com\lacapitale\corporatif\diagnostic\page\dao\DiagnosticPageDao.class
+com\lacapitale\corporatif\diagnostic\page\dao\DiagnosticPageImpl$1.class
+com\lacapitale\corporatif\diagnostic\page\DspJavaDiagnosticToHealthCheck.class
+com\lacapitale\corporatif\diagnostic\page\model\DiagnosticPage.class
+com\lacapitale\corporatif\diagnostic\page\service\DiagnosticPageService.class
+com\lacapitale\corporatif\diagnostic\page\controller\DiagPageController.class
+com\lacapitale\corporatif\diagnostic\page\dao\DiagnosticPageImpl.class
+com\lacapitale\corporatif\diagnostic\page\service\ServiceProperties.class
