@@ -7,17 +7,24 @@
     "endPoint": "advisorSpace"
   },
   {
-     "name": "cap-courtier",
-      "sector": "Assurances individuelles",
-      "type": "Diagnostic",
-      "url": "https://services.lacapitale.com/cap-courtier/nagios",
-      "endPoint": "capCourtier"
-   },
-{
-     "name": "ec-epargne",
-      "sector": "Services individuelles",
-      "type": "Diagnostic",
-      "url": "https://espaceconseiller.lacapitale.com/epargne/testSante",
-      "endPoint": "ecEpargne"
-   }
+    "name": "cap-courtier",
+    "sector": "Assurances individuelles",
+    "type": "Diagnostic",
+    "url": "https://services.lacapitale.com/cap-courtier/nagios",
+    "endPoint": "capCourtier"
+  },
+  {
+    "name": "svc-corp-pubpost",
+    "sector": "Services corporatifs",
+    "type": "Diagnostic",
+    "url": "http://svc-corp-pubpost.capitale.qc.ca/publipostage/health",
+    "endPoint": "pubPost"
+  },
+  {
+    "name": "ec-epargne",
+    "sector": "Services individuelles",
+    "type": "Diagnostic",
+    "url": "https://espaceconseiller.lacapitale.com/epargne/testSante",
+    "endPoint": "ecEpargne"
+  }
 ]

@@ -111,11 +111,4 @@ public class DiagnosticPageService {
         }
         return code;
     }
-
-    public static void main(String[] args) throws Exception {
-         DiagnosticPageService diagnosticPageService  = new DiagnosticPageService();
-        System.out.println(diagnosticPageService.getStatusUrlHttpOrHttpsService("https://s02-devl-espaceconseiller.web.lacapitale.com/espaceconseiller/test-sante"));
-        System.out.println(diagnosticPageService.getCodeResponseUrlHttpOrHttpsService("https://s02-devl-espaceconseiller.web.lacapitale.com/espaceconseiller/test-sante"));
-
-    }
 }
