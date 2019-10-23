@@ -14,7 +14,7 @@ VOLUME /tmp
 #RUN find /tmp/build/
 #--------------------------------
 
-ADD ./target/dsp-java-diagnosticToHealthCheck-0.0.1-SNAPSHOT.jar app.jar
+ADD ./target/dsp-java-diagnosticToHealthCheck.jar app.jar
 
 ENTRYPOINT ["java"]
 
