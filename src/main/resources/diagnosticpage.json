@@ -24,7 +24,7 @@
     "name": "ec-epargne",
     "sector": "Services individuelles",
     "type": "Diagnostic",
-    "url": "https://api-intint.dev1.gcpdev.internal/dsp-diagnostictohealthcheck-devl/dsc-java-diagnosticToHealthCheck/",
+    "url": "https://espaceconseiller.lacapitale.com/epargne/testSante",
     "endPoint": "ecEpargne"
   }
 ]
