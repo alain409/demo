@@ -47,7 +47,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>dsp-java-diagnosticToHealthCheck</finalName>
+		<finalName>dsp-java-diagnosticToHealthCheck-0.0.1-SNAPSHOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
