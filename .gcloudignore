@@ -1,0 +1,23 @@
+.gitignore
+.gcloudignore
+.git
+.mvn
+src
+
+# "append" le contenu du fichier .gitignore comme s'il
+# etait inscrit directement ici dans le fichier.
+#!include:.gitignore
+
+# Le fichier .gitignore exclu le repertoire target.
+# Ici, on le reinclus.
+!target
+
+# Le repertoir target est "reinclus" mais on
+# ne veut pas son contenu.
+target/*
+
+# Sauf les jars.  Si nous n'avions pas reinclu le
+# repertoir target, les sous elements de tartet
+# n'aurait pas pu etre inclus.
+!target/*.jar
+

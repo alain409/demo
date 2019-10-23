@@ -1,0 +1,16 @@
+#.idea/$PRODUCT_WORKSPACE_FILE$
+#.gitignore
+#.idea/compiler.xml
+#.idea/encodings.xml
+#.idea/misc.xml
+#.idea/uiDesigner.xml
+#.idea/vcs.xml
+#.idea/workspace.xml
+#src/main/resources/static/
+#src/main/resources/templates/
+#target/generated-sources/
+#target/generated-test-sources/
+.idea
+target
+*.iml
+bin
