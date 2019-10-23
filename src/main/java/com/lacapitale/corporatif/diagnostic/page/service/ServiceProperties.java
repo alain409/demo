@@ -15,7 +15,7 @@ public class ServiceProperties {
     //Méthode pour récupérer un fichier du répertoire resources
     public String getFileJson(){
 
-        Resource resource = new ClassPathResource("template-file-diagnosticPage.json");
+        Resource resource = new ClassPathResource("diagnosticPage.json");
         File file = null;
         try {
            InputStream input = resource.getInputStream();
