@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lacapitale.corporatif.diagnostic.page.model.DiagnosticPage;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import java.io.File;
+import java.io.InputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,23 @@ import java.util.List;
 public class ServiceProperties {
 
     //Méthode pour récupérer un fichier du répertoire resources
+
+    public String getFileJson(){
+
+        Resource resource = new ClassPathResource("/config/diagnosticpage.json");
+        File file=null;
+
+        try {
+            InputStream input = resource.getInputStream();
+            file = resource.getFile();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return String.valueOf(file);
+    }
+
+/*
   public List<DiagnosticPage> getFileJson(){
       ObjectMapper mapper = new ObjectMapper();
       DiagnosticPage valueResult = new DiagnosticPage();
@@ -63,6 +83,7 @@ public class ServiceProperties {
         }
         return listValueResult;
     }
+*/
 
     public ServiceProperties() {
     }
