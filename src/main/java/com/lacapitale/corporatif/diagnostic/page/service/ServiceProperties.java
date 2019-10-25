@@ -21,16 +21,13 @@ public class ServiceProperties {
 
     public String getFileJson(){
 
-        Resource resource = new ClassPathResource("/config/diagnosticpage.json");
-        File file=null;
 
-        try {
-            InputStream input = resource.getInputStream();
-            file = resource.getFile();
+        String fileName = "diagnosticpage.json";
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+
+        File file = new File(classLoader.getResource(fileName).getFile());
+
         return String.valueOf(file);
     }
 
