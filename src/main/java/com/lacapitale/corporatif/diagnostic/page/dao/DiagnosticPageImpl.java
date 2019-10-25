@@ -1,14 +1,9 @@
 package com.lacapitale.corporatif.diagnostic.page.dao;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lacapitale.corporatif.diagnostic.page.model.DiagnosticPage;
 import com.lacapitale.corporatif.diagnostic.page.service.ServiceProperties;
 import org.springframework.stereotype.Repository;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,21 +16,7 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
     @Override
     public List<DiagnosticPage> getDataDiagPage() {
         serviceProperties = new ServiceProperties();
-        List<DiagnosticPage> diagnosticPage = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            List<DiagnosticPage> diagnosticPageList = objectMapper
-                    .readValue(new File(serviceProperties.getFileJson()),
-                            new TypeReference<List<DiagnosticPage>>() {
-                            });
-            for (DiagnosticPage dp : diagnosticPageList
-            ) {
-                diagnosticPage = diagnosticPageList;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return diagnosticPage;
+      return serviceProperties.getFileJson();
     }
 
     @Override

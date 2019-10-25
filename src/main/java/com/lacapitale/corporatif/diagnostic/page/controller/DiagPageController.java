@@ -26,6 +26,7 @@ public class DiagPageController {
     //Méthode qui retourne un service par son endPoint
     @GetMapping(value = "DiagnosticPages/{endPoint}")
     public Optional<DiagnosticPage> getOneService(@PathVariable String endPoint) {
+
         Optional<DiagnosticPage> optionalDiagnosticPage = null;
         switch (endPoint) {
             case "advisorSpace":
