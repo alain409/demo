@@ -22,7 +22,8 @@ public class ServiceProperties {
     public String getFileJson(){
 
 
-        String fileName = "diagnosticpage.json";
+        //String fileName = "diagnosticpage.json";
+        String fileName = "application.properties";
 
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
