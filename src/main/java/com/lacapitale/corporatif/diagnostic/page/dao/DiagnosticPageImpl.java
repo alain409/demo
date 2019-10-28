@@ -17,6 +17,7 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
     private ServiceProperties serviceProperties;
     private List<DiagnosticPage> listServicesProperties = getDataDiagPage();
 
+/*
     @Override
     public List<DiagnosticPage> getDataDiagPage() {
         serviceProperties = new ServiceProperties();
@@ -36,12 +37,13 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
         }
         return diagnosticPage;
     }
+*/
 
-/*    @Override
+    @Override
     public List<DiagnosticPage> getDataDiagPage() {
         serviceProperties = new ServiceProperties();
       return serviceProperties.getFileJson();
-    }*/
+    }
 
     @Override
     public List<DiagnosticPage> findAll() {

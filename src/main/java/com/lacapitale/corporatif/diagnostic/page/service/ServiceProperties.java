@@ -19,20 +19,18 @@ public class ServiceProperties {
 
     //Méthode pour récupérer un fichier du répertoire resources
 
-    public String getFileJson(){
+ /*   public String getFileJson(){
 
 
-        //String fileName = "diagnosticpage.json";
-        String fileName = "application.properties";
+        String fileName = "diagnosticpage.json";
 
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
         File file = new File(classLoader.getResource(fileName).getFile());
 
         return String.valueOf(file);
-    }
+    }*/
 
-/*
   public List<DiagnosticPage> getFileJson(){
       ObjectMapper mapper = new ObjectMapper();
       DiagnosticPage valueResult = new DiagnosticPage();
@@ -81,7 +79,6 @@ public class ServiceProperties {
         }
         return listValueResult;
     }
-*/
 
     public ServiceProperties() {
     }
