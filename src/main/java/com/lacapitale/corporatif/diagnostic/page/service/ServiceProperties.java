@@ -22,7 +22,7 @@ public class ServiceProperties {
     public String getFileJson(){
 
 
-        String fileName = "/var/diagnosticpage.json";
+        String fileName = "diagnosticpage.json";
 
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
