@@ -3,49 +3,60 @@ package com.lacapitale.corporatif.diagnostic.page.dao;
 import com.lacapitale.corporatif.diagnostic.page.model.DiagnosticPage;
 import com.lacapitale.corporatif.diagnostic.page.service.ServiceProperties;
 import org.springframework.stereotype.Repository;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class DiagnosticPageImpl implements DiagnosticPageDao {
 
+    private static final String sectorCgen = "CGEN";
+    private static final String sectorCaap = "CAAP";
     private ServiceProperties serviceProperties;
     private List<DiagnosticPage> listServicesProperties = getDataDiagPage();
+    private Optional<DiagnosticPage> listServicesPropertiesCgen = getDataDiagPageCgen();
+    private Optional<DiagnosticPage> listServicesPropertiesCaap = getDataDiagPageCaap();
 
-    @Override
+
+   @Override
     public List<DiagnosticPage> getDataDiagPage() {
         serviceProperties = new ServiceProperties();
-        List<DiagnosticPage> diagnosticPage = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            List<DiagnosticPage> diagnosticPageList = objectMapper
-                    .readValue(new File(serviceProperties.getFileJson()),
-                            new TypeReference<List<DiagnosticPage>>() {
-                            });
-            for (DiagnosticPage dp : diagnosticPageList
-            ) {
-                diagnosticPage = diagnosticPageList;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return diagnosticPage;
+      return serviceProperties.getFileJson("diagnosticpage.json");
     }
 
-/*    @Override
-    public List<DiagnosticPage> getDataDiagPage() {
-        serviceProperties = new ServiceProperties();
-      return serviceProperties.getFileJson();
-    }*/
+    @Override
+    public Optional<DiagnosticPage> getDataDiagPageCgen() {
+       final Optional<DiagnosticPage> listSectorCgen = listServicesProperties.stream()
+                            .filter(service -> service
+                                    .getSector()
+                                    .equals(sectorCgen))
+                                    .findFirst();
+       return listSectorCgen;
+    }
+
+    @Override
+    public Optional<DiagnosticPage> getDataDiagPageCaap() {
+        final Optional<DiagnosticPage> listSectorCaap = listServicesProperties.stream()
+                .filter(service -> service
+                        .getSector()
+                        .equals(sectorCaap))
+                        .findFirst();
+        return listSectorCaap;
+    }
 
     @Override
     public List<DiagnosticPage> findAll() {
         return listServicesProperties;
+    }
+
+    @Override
+    public Optional<DiagnosticPage> findAllServicesCgen() {
+        return listServicesPropertiesCgen;
+    }
+
+    @Override
+    public Optional<DiagnosticPage> findAllServicesCaap() {
+        return listServicesPropertiesCaap;
     }
 
    /* @Override

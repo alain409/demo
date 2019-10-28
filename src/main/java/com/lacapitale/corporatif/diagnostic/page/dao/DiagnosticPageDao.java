@@ -11,7 +11,15 @@ public interface DiagnosticPageDao {
 
     public List<DiagnosticPage> getDataDiagPage();
 
+    public Optional<DiagnosticPage> getDataDiagPageCgen();
+
+    public Optional<DiagnosticPage> getDataDiagPageCaap();
+
     public List<DiagnosticPage> findAll();
+
+    public Optional<DiagnosticPage> findAllServicesCgen();
+
+    public Optional<DiagnosticPage> findAllServicesCaap();
 
    // public Optional<DiagnosticPage> findByEndPoint(String endPoint);
 

@@ -4,9 +4,7 @@ import com.lacapitale.corporatif.diagnostic.page.dao.DiagnosticPageDao;
 import com.lacapitale.corporatif.diagnostic.page.model.DiagnosticPage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +16,27 @@ public class DiagPageController {
     private DiagnosticPageDao diagnosticPageDao;
 
     //Méthode qui retourne tous les services
-    @GetMapping(value = "/DiagnosticPages")
+  /*  @GetMapping(value = "/DiagnosticPages")
     public List<DiagnosticPage> listOfService() {
         return diagnosticPageDao.findAll();
+    }*/
+
+    //Méthode pour récupérer les tests CGEN et CAAP
+    @GetMapping(value = "DiagnosticPages")
+    @ResponseBody
+    public Optional<DiagnosticPage> listOfService(@RequestParam(value = "sector") String sector) {
+        Optional<DiagnosticPage> diagnosticPageList = null;
+        switch (sector){
+            case "CGEN":
+                diagnosticPageList = diagnosticPageDao.findAllServicesCgen();
+                break;
+            case "CAAP":
+                diagnosticPageList = diagnosticPageDao.findAllServicesCaap();
+                break;
+                default:
+                    break;
+        }
+        return diagnosticPageList;
     }
 
     //Méthode qui retourne un service par son endPoint

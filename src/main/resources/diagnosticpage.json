@@ -26,5 +26,26 @@
     "type": "Diagnostic",
     "url": "https://espaceconseiller.lacapitale.com/epargne/testSante",
     "endPoint": "ecEpargne"
+  },
+  {
+    "name": "Test diagnostic MiddleMan",
+    "sector": "Assurances individuelles",
+    "type": "Diagnostic",
+    "url": "http://n1-s01-prod-ind-integration.lacapitale.com/ind-integration/mman/diagnostic",
+    "endPoint": "indIntergration"
+  },
+  {
+    "name": "Centre d'applications(Ind-Apps)",
+    "sector": "Assurances individuelles",
+    "type": "Diagnostic",
+    "url": "http://ind-apps.capitale.qc.ca/ind-apps/test-sante",
+    "endPoint": "indApps"
+  },
+  {
+    "name": "Services ass. Vie-Présentation",
+    "sector": "Services corporatifs",
+    "type": "Diagnostic",
+    "url": "https://nova-tuiles.capitale.qc.ca/assurance-individuelle/test-sante",
+    "endPoint": "viePresentation"
   }
 ]

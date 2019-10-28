@@ -1,20 +1,31 @@
-#.idea/$PRODUCT_WORKSPACE_FILE$
-#.gitignore
-#.idea/compiler.xml
-#.idea/encodings.xml
-#.idea/misc.xml
-#.idea/uiDesigner.xml
-#.idea/vcs.xml
-#.idea/workspace.xml
-#src/main/resources/static/
-#src/main/resources/templates/
-#target/generated-sources/
-#target/generated-test-sources/
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
 .idea
-target
+*.iws
 *.iml
-bin
-#src/main/resources/static/
-#src/main/resources/templates/
-src/main/resources/static/
-src/main/resources/templates/
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/

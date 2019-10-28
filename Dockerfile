@@ -25,4 +25,4 @@ USER root
 
 # We specify in the entrypoint the location of the application.properties file because it is provided by a ConfigMap in Kubernetes
 # "-Dspring.config.location=file:/config/application.properties",
-CMD ["-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+CMD ["-Djava.security.egd=file:/dev/./urandom","-Dspring.config.location=file:/config/diagnosticpage.json","-jar","/app.jar"]
