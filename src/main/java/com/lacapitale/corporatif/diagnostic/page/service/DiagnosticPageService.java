@@ -57,7 +57,7 @@ public class DiagnosticPageService {
         return response;
     }
 
-     //Méthode pour les requêtes Http
+    //Méthode pour les requêtes Http
     public StringBuffer getStatusHttpService(String url) throws Exception {
         StringBuffer response = new StringBuffer();
         HttpURLConnection httpClient =
@@ -93,7 +93,7 @@ public class DiagnosticPageService {
         }
     }
 
-  //Pour obtenir un code de réponse pour la requête Http
+    //Pour obtenir un code de réponse pour la requête Http
     public int getCodeResponseUrlHttpOrHttpsService(String url) {
         int code = 0;
         try {

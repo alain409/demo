@@ -9,11 +9,13 @@ public class DiagnosticPage {
 
     private String sector;
 
+    private String division;
+
     private String type;
 
     private String url;
 
-    private String endPoint;
+    private String healthtest;
 
     private int code;
 
@@ -23,10 +25,11 @@ public class DiagnosticPage {
 
     private DiagnosticPageService diagnosticPageService;
 
-    public DiagnosticPage( String name, String sector, String type, String url, String endPoint, int code, String status) {
-        this.endPoint = endPoint;
+    public DiagnosticPage( String name, String sector, String division, String type, String url, String healthtest, int code, String status) {
+        this.healthtest = healthtest;
         this.name = name;
         this.sector = sector;
+        this.division = division;
         this.type = type;
         this.url = url;
         this.code = code;
@@ -42,6 +45,10 @@ public class DiagnosticPage {
 
     public String getSector() {
         return sector;
+    }
+
+    public String getDivision() {
+        return division;
     }
 
     public String getType() {
@@ -64,8 +71,8 @@ public class DiagnosticPage {
         return response;
     }
 
-    public String getEndPoint() {
-        return endPoint;
+    public String getHealthtest() {
+        return healthtest;
     }
 
     public void setName(String name) {
@@ -74,6 +81,10 @@ public class DiagnosticPage {
 
     public void setSector(String sector) {
         this.sector = sector;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
     }
 
     public void setType(String type) {
@@ -92,8 +103,8 @@ public class DiagnosticPage {
         this.status = status;
     }
 
-    public void setEndPoint(String endPoint) {
-        this.endPoint = endPoint;
+    public void setHealthtest(String healthtest) {
+        this.healthtest = healthtest;
     }
 
     @Override
@@ -101,9 +112,10 @@ public class DiagnosticPage {
         return "DiagnosticPage{" +
                 "name='" + name + '\'' +
                 ", sector='" + sector + '\'' +
+                ", division='" + division + '\'' +
                 ", type='" + type + '\'' +
                 ", url='" + url + '\'' +
-                ", endPoint='" + endPoint + '\'' +
+                ", healthtest='" + healthtest + '\'' +
                 ", code=" + code +
                 ", status='" + status + '\'' +
                 '}';

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class DiagPageController {
@@ -15,54 +14,35 @@ public class DiagPageController {
     @Autowired
     private DiagnosticPageDao diagnosticPageDao;
 
-    //Méthode qui retourne tous les services
-  /*  @GetMapping(value = "/DiagnosticPages")
-    public List<DiagnosticPage> listOfService() {
-        return diagnosticPageDao.findAll();
-    }*/
 
-    //Méthode pour récupérer les tests CGEN et CAAP
+    //Méthode qui retourne tous les services soit par secteur soit par secteur et division, ou par secteur division et healthtest
     @GetMapping(value = "DiagnosticPages")
     @ResponseBody
-    public Optional<DiagnosticPage> listOfService(@RequestParam(value = "sector") String sector) {
-        Optional<DiagnosticPage> diagnosticPageList = null;
-        switch (sector){
-            case "CGEN":
-                diagnosticPageList = diagnosticPageDao.findAllServicesCgen();
-                break;
-            case "CAAP":
-                diagnosticPageList = diagnosticPageDao.findAllServicesCaap();
-                break;
-                default:
-                    break;
+    public List<DiagnosticPage> listOfService(@RequestParam String sector,
+                                              @RequestParam String division,
+                                              @RequestParam String healthtest) {
+       List<DiagnosticPage> diagnosticPageList = null;
+       if((division == "") &&
+               (healthtest == "") &&
+               (sector != ""))
+        {
+            diagnosticPageList = diagnosticPageDao.finddAllServicesBySector(sector);
         }
-        return diagnosticPageList;
-    }
+        else if((division != "") &&
+                (sector != "") &&
+                (healthtest != "")) {
 
-    //Méthode qui retourne un service par son endPoint
-    @GetMapping(value = "DiagnosticPages/{endPoint}")
-    public Optional<DiagnosticPage> getOneService(@PathVariable String endPoint) {
+           diagnosticPageList = diagnosticPageDao.findAllByAllServices(sector, division, healthtest);
 
-        Optional<DiagnosticPage> optionalDiagnosticPage = null;
-        switch (endPoint) {
-            case "advisorSpace":
-                optionalDiagnosticPage = diagnosticPageDao.findByEndPointAdvisorSpace(endPoint);
-                break;
+        }else if((healthtest == "")
+                  && (sector !="") &&
+                  (division != "")){
 
-            case "capCourtier":
-                optionalDiagnosticPage = diagnosticPageDao.findByEndPointCapCourtier(endPoint);
-                break;
+           diagnosticPageList = diagnosticPageDao.findAllServicesBySectorDivision(sector, division);
 
-            case "pubPost":
-                optionalDiagnosticPage = diagnosticPageDao.findByEndPointPubPost(endPoint);
-                break;
-
-            case "ecEpargne":
-                optionalDiagnosticPage = diagnosticPageDao.findByEndPointEcEpargne(endPoint);
-                break;
-            default:
-                break;
-        }
-        return optionalDiagnosticPage;
+       }else {
+           diagnosticPageList = diagnosticPageDao.findAll();
+       }
+       return diagnosticPageList;
     }
 }

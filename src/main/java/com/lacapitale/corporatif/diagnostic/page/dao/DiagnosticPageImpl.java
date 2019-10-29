@@ -5,43 +5,18 @@ import com.lacapitale.corporatif.diagnostic.page.service.ServiceProperties;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class DiagnosticPageImpl implements DiagnosticPageDao {
 
-    private static final String sectorCgen = "CGEN";
-    private static final String sectorCaap = "CAAP";
     private ServiceProperties serviceProperties;
     private List<DiagnosticPage> listServicesProperties = getDataDiagPage();
-    private Optional<DiagnosticPage> listServicesPropertiesCgen = getDataDiagPageCgen();
-    private Optional<DiagnosticPage> listServicesPropertiesCaap = getDataDiagPageCaap();
 
-
-   @Override
+    @Override
     public List<DiagnosticPage> getDataDiagPage() {
         serviceProperties = new ServiceProperties();
-      return serviceProperties.getFileJson("diagnosticpage.json");
-    }
-
-    @Override
-    public Optional<DiagnosticPage> getDataDiagPageCgen() {
-       final Optional<DiagnosticPage> listSectorCgen = listServicesProperties.stream()
-                            .filter(service -> service
-                                    .getSector()
-                                    .equals(sectorCgen))
-                                    .findFirst();
-       return listSectorCgen;
-    }
-
-    @Override
-    public Optional<DiagnosticPage> getDataDiagPageCaap() {
-        final Optional<DiagnosticPage> listSectorCaap = listServicesProperties.stream()
-                .filter(service -> service
-                        .getSector()
-                        .equals(sectorCaap))
-                        .findFirst();
-        return listSectorCaap;
+        return serviceProperties.getFileJson("diagnosticpage.json");
     }
 
     @Override
@@ -50,60 +25,41 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
     }
 
     @Override
-    public Optional<DiagnosticPage> findAllServicesCgen() {
-        return listServicesPropertiesCgen;
+    public List<DiagnosticPage> findAllByAllServices(String sector, String division,String healthtest) {
+        final List<DiagnosticPage> listAllHealthtest = listServicesProperties.stream()
+                .filter(service -> service
+                             .getSector()
+                              .equals(sector) &&
+                               service
+                                .getDivision()
+                                .equals(division) &&
+                                service
+                               .getHealthtest()
+                               .equals(healthtest))
+                               .collect(Collectors.toList());
+        return listAllHealthtest;
     }
 
     @Override
-    public Optional<DiagnosticPage> findAllServicesCaap() {
-        return listServicesPropertiesCaap;
-    }
-
-   /* @Override
-    public Optional<DiagnosticPage> findByEndPoint(String endPoint) {
-        final Optional<DiagnosticPage> firstFindEndPoint = listServicesProperties.stream()
-                .filter(service -> service.getEndPoint().equals(endPoint))
-                .findFirst();
-        return firstFindEndPoint;
-    }*/
-
-    @Override
-    public Optional<DiagnosticPage> findByEndPointAdvisorSpace(String endPoint) {
-        endPoint = "advisorSpace";
-        String finalEndPoint = endPoint;
-        final Optional<DiagnosticPage> firstFindEndPointAdvisorSpace = listServicesProperties.stream()
-                .filter(service -> service.getEndPoint().equals(finalEndPoint))
-                .findFirst();
-        return firstFindEndPointAdvisorSpace;
+    public List<DiagnosticPage> finddAllServicesBySector(String sector) {
+        final List<DiagnosticPage> listAllSector = listServicesProperties.stream()
+                .filter(service -> service
+                        .getSector()
+                        .equals(sector))
+                .collect(Collectors.toList());
+        return listAllSector;
     }
 
     @Override
-    public Optional<DiagnosticPage> findByEndPointCapCourtier(String endPoint) {
-        endPoint = "capCourtier";
-        String finalEndPoint = endPoint;
-        final Optional<DiagnosticPage> firstFindEndPointCapCourtier = listServicesProperties.stream()
-                .filter(service -> service.getEndPoint().equals(finalEndPoint))
-                .findFirst();
-        return firstFindEndPointCapCourtier;
-    }
-
-    @Override
-    public Optional<DiagnosticPage> findByEndPointPubPost(String endPoint) {
-        endPoint = "pubPost";
-        String finalEndPoint = endPoint;
-        final Optional<DiagnosticPage> firstFindEndPointPubPost = listServicesProperties.stream()
-                .filter(service -> service.getEndPoint().equals(finalEndPoint))
-                .findFirst();
-        return firstFindEndPointPubPost;
-    }
-
-    @Override
-    public Optional<DiagnosticPage> findByEndPointEcEpargne(String endPoint) {
-        endPoint = "ecEpargne";
-        String finalEndPoint = endPoint;
-        final Optional<DiagnosticPage> firstFindEndPointEcEpargne = listServicesProperties.stream()
-                .filter(service -> service.getEndPoint().equals(finalEndPoint))
-                .findFirst();
-        return firstFindEndPointEcEpargne;
+    public List<DiagnosticPage> findAllServicesBySectorDivision(String sector, String division) {
+        final List<DiagnosticPage> listAllDivision = listServicesProperties.stream()
+                .filter(service -> service
+                        .getSector()
+                        .equals(sector) &&
+                         service
+                         .getDivision()
+                          .equals(division))
+                .collect(Collectors.toList());
+        return listAllDivision;
     }
 }

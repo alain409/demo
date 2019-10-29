@@ -1,51 +1,58 @@
 [
   {
     "name": "espaceConseiller",
-    "sector": "Assurances individuelles",
+    "sector": "IND",
+    "division": "AssuInd",
     "type": "Diagnostic",
     "url": "https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante",
-    "endPoint": "advisorSpace"
+    "healthtest": "advisorSpace"
   },
   {
     "name": "cap-courtier",
-    "sector": "Assurances individuelles",
+    "sector": "IND",
+    "division": "AssuInd",
     "type": "Diagnostic",
     "url": "https://services.lacapitale.com/cap-courtier/nagios",
-    "endPoint": "capCourtier"
+    "healthtest": "capCourtier"
   },
   {
     "name": "svc-corp-pubpost",
-    "sector": "Services corporatifs",
+    "sector": "SERVCORP",
+    "division": "SerCorp",
     "type": "Diagnostic",
     "url": "http://svc-corp-pubpost.capitale.qc.ca/publipostage/health",
-    "endPoint": "pubPost"
+    "healthtest": "pubPost"
   },
   {
-    "name": "ec-epargne",
-    "sector": "Services individuelles",
+    "name": "Clic",
+    "sector": "COL",
+    "division": "AssuCol",
     "type": "Diagnostic",
-    "url": "https://espaceconseiller.lacapitale.com/epargne/testSante",
-    "endPoint": "ecEpargne"
+    "url": "https://clic.capitale.qc.ca/clic-webapp/clic/diagnostic",
+    "healthtest": "clic"
   },
   {
-    "name": "Test diagnostic MiddleMan",
-    "sector": "Assurances individuelles",
-    "type": "Diagnostic",
-    "url": "http://n1-s01-prod-ind-integration.lacapitale.com/ind-integration/mman/diagnostic",
-    "endPoint": "indIntergration"
+    "name": "Agora",
+    "sector": "AFFNUM",
+    "division": "AffNum",
+    "type": "Fonctionnel",
+    "url": "https://agora2.capitale.qc.ca/welcome",
+    "healthtest": "agora"
   },
   {
-    "name": "Centre d'applications(Ind-Apps)",
-    "sector": "Assurances individuelles",
-    "type": "Diagnostic",
-    "url": "http://ind-apps.capitale.qc.ca/ind-apps/test-sante",
-    "endPoint": "indApps"
+    "name": "Svc-rh",
+    "sector": "SERVCORP",
+    "division": "SerCorp",
+    "type": "Fonctionnel",
+    "url": "http://capdirect-sac.capitale.qc.ca/capdirect-sac/jspx/reconnaissance/reconnaissance.jspx",
+    "healthtest": "svcRh"
   },
   {
     "name": "Services ass. Vie-Présentation",
-    "sector": "Services corporatifs",
+    "sector": "SERVCORP",
+    "division": "SerCorp",
     "type": "Diagnostic",
     "url": "https://nova-tuiles.capitale.qc.ca/assurance-individuelle/test-sante",
-    "endPoint": "viePresentation"
+    "healthtest": "viePresentation"
   }
 ]

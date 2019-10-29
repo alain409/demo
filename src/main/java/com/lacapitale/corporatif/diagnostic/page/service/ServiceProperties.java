@@ -16,7 +16,7 @@ public class ServiceProperties {
     //  ResourceLoader resourceLoader;
     public List<DiagnosticPage> getFileJson(String fileService){
         ObjectMapper mapper = new ObjectMapper();
-       // DiagnosticPage valueResult = new DiagnosticPage();
+        // DiagnosticPage valueResult = new DiagnosticPage();
         List<DiagnosticPage> listValueResult = new ArrayList<>();
 
     /*    String serviceListJson = "[\n" +
@@ -68,11 +68,6 @@ public class ServiceProperties {
 
     public  ServiceProperties()
     {
-    }
-
-    public static void main(String[] args) throws IOException {
-        ServiceProperties serviceProperties = new ServiceProperties();
-        // System.out.println(serviceProperties.getFileJson());
     }
 }
 
