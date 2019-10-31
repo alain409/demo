@@ -18,8 +18,8 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
     @Override
     public List<DiagnosticPage> getDataDiagPageNoResponse() {
         serviceProperties = new ServiceProperties();
-        return serviceProperties.getFileJson("diagnosticpage.json");
-       // return serviceProperties.getFileJson();
+       // return serviceProperties.getFileJson("diagnosticpage.json");
+        return serviceProperties.getFileJson();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
     @Override
     public List<DiagnosticPage> getListShowReponse(boolean showResponse){
         List<DiagnosticPage> listAllHealthtestNoOrResponse = null;
-        if(showResponse == true)
+        if(showResponse)
         {
             listAllHealthtestNoOrResponse = getDataDiagPageResponse();
         }else{
