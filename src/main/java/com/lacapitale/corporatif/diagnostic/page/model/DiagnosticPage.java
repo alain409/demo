@@ -19,13 +19,11 @@ public class DiagnosticPage {
 
     private int code;
 
-    private String status;
-
-    private DiagnosticPageImpl diagnosticPageImp;
+    private StringBuffer response;
 
     private DiagnosticPageService diagnosticPageService;
 
-    public DiagnosticPage( String name, String sector, String division, String type, String url, String healthtest, int code, String status) {
+    public DiagnosticPage( String name, String sector, String division, String type, String url, String healthtest, int code, StringBuffer response) {
         this.healthtest = healthtest;
         this.name = name;
         this.sector = sector;
@@ -33,7 +31,7 @@ public class DiagnosticPage {
         this.type = type;
         this.url = url;
         this.code = code;
-        this.status = status;
+        this.response = response;
     }
 
     public DiagnosticPage() {
@@ -65,9 +63,7 @@ public class DiagnosticPage {
         return codeResponse;
     }
 
-    public StringBuffer getStatus() {
-        diagnosticPageService = new DiagnosticPageService();
-        StringBuffer response = diagnosticPageService.getStatusUrlHttpOrHttpsService(url);
+    public StringBuffer getResponse() {
         return response;
     }
 
@@ -99,8 +95,8 @@ public class DiagnosticPage {
         this.code = code;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setResponse(StringBuffer response) {
+        this.response = response;
     }
 
     public void setHealthtest(String healthtest) {
@@ -117,7 +113,7 @@ public class DiagnosticPage {
                 ", url='" + url + '\'' +
                 ", healthtest='" + healthtest + '\'' +
                 ", code=" + code +
-                ", status='" + status + '\'' +
+               ", response='" + response + '\'' +
                 '}';
     }
 }

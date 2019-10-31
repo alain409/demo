@@ -43,13 +43,13 @@ public class DiagnosticPageService {
     }
 
     //Méthode pour retourner le statut Http ou Https
-    public StringBuffer getStatusUrlHttpOrHttpsService(String url) {
+    public StringBuffer getResponseUrlHttpOrHttpsService(String url) {
         StringBuffer response = new StringBuffer();
         try {
             if (findMatchUrlHttpService(url)) {
-                response = getStatusHttpService(url);
+                response = getResponseHttpService(url);
             } else if (findMatchUrlHttpsService(url)) {
-                response = getStatusHttpsService(url);
+                response = getResponseHttpsService(url);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class DiagnosticPageService {
     }
 
     //Méthode pour les requêtes Http
-    public StringBuffer getStatusHttpService(String url) throws Exception {
+    public StringBuffer getResponseHttpService(String url) throws Exception {
         StringBuffer response = new StringBuffer();
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -76,7 +76,7 @@ public class DiagnosticPageService {
     }
 
     //Méthode pour les requêtes Https
-    public StringBuffer getStatusHttpsService(String url) throws Exception {
+    public StringBuffer getResponseHttpsService(String url) throws Exception {
         StringBuffer response = new StringBuffer();
         HttpsURLConnection httpsClient =
                 (HttpsURLConnection) new URL(url).openConnection();

@@ -20,29 +20,26 @@ public class DiagPageController {
     @ResponseBody
     public List<DiagnosticPage> listOfService(@RequestParam String sector,
                                               @RequestParam String division,
-                                              @RequestParam String healthtest) {
-       List<DiagnosticPage> diagnosticPageList = null;
-       if((division == "") &&
-               (healthtest == "") &&
-               (sector != ""))
-        {
-            diagnosticPageList = diagnosticPageDao.finddAllServicesBySector(sector);
-        }
-        else if((division != "") &&
+                                              @RequestParam String healthtest,
+                                              @RequestParam boolean showResponse) {
+       List<DiagnosticPage> diagnosticPageListResponse = null;
+
+        if ((division == "") &&
+                (healthtest == "") &&
+                (sector != "")) {
+            diagnosticPageListResponse = diagnosticPageDao.findAllServicesBySectorNoOrResponse(sector,showResponse);
+        } else if ((division != "") &&
                 (sector != "") &&
                 (healthtest != "")) {
+            diagnosticPageListResponse = diagnosticPageDao.findAllByAllServicesNoOrResponse(sector, division,healthtest,showResponse);
 
-           diagnosticPageList = diagnosticPageDao.findAllByAllServices(sector, division, healthtest);
-
-        }else if((healthtest == "")
-                  && (sector !="") &&
-                  (division != "")){
-
-           diagnosticPageList = diagnosticPageDao.findAllServicesBySectorDivision(sector, division);
-
-       }else {
-           diagnosticPageList = diagnosticPageDao.findAll();
-       }
-       return diagnosticPageList;
+        } else if ((healthtest == "")
+                && (sector != "") &&
+                (division != "")) {
+            diagnosticPageListResponse = diagnosticPageDao.findAllServicesBySectorDivisionNoOrResponse(sector, division, showResponse);
+            } else {
+            diagnosticPageListResponse = diagnosticPageDao.getDataDiagPageNoResponse();
+        }
+        return diagnosticPageListResponse;
     }
 }
