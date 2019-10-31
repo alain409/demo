@@ -18,7 +18,7 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
     @Override
     public List<DiagnosticPage> getDataDiagPageNoResponse() {
         serviceProperties = new ServiceProperties();
-       // return serviceProperties.getFileJson("diagnosticpage.json");
+        // return serviceProperties.getFileJson("diagnosticpage.json");
         return serviceProperties.getFileJson();
     }
 
@@ -26,15 +26,17 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
     public List<DiagnosticPage> findAll() {
         return getDataDiagPageNoResponse();
     }
+
     @Override
-    public List<DiagnosticPage> getDataDiagPageResponse(){
+    public List<DiagnosticPage> getDataDiagPageResponse() {
         List<DiagnosticPage> listValueResult = new ArrayList<>();
         diagnosticPageService = new DiagnosticPageService();
         for (DiagnosticPage dp : getDataDiagPageNoResponse()
         ) {
-        DiagnosticPage diagnosticPage = new DiagnosticPage(dp.getName(),dp.getSector(),
-                    dp.getDivision(),dp.getType(),
-                    dp.getUrl(),dp.getHealthtest(),dp.getCode(),
+            DiagnosticPage diagnosticPage = new DiagnosticPage(
+                    dp.getName(), dp.getSector(),
+                    dp.getDivision(), dp.getType(),
+                    dp.getUrl(), dp.getHealthtest(), dp.getCode(),
                     diagnosticPageService.getResponseUrlHttpOrHttpsService(dp.getUrl()));
             listValueResult.add(diagnosticPage);
         }
@@ -42,30 +44,29 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
     }
 
     @Override
-    public List<DiagnosticPage> getListShowReponse(boolean showResponse){
+    public List<DiagnosticPage> getListShowReponse(boolean showResponse) {
         List<DiagnosticPage> listAllHealthtestNoOrResponse = null;
-        if(showResponse)
-        {
+        if (showResponse) {
             listAllHealthtestNoOrResponse = getDataDiagPageResponse();
-        }else{
+        } else {
             listAllHealthtestNoOrResponse = getDataDiagPageNoResponse();
         }
         return listAllHealthtestNoOrResponse;
     }
 
     @Override
-    public List<DiagnosticPage> findAllByAllServicesNoOrResponse(String sector, String division,String healthtest, boolean showResponse) {
+    public List<DiagnosticPage> findAllByAllServicesNoOrResponse(String sector, String division, String healthtest, boolean showResponse) {
         final List<DiagnosticPage> listAllHealthtest = getListShowReponse(showResponse).stream()
                 .filter(service -> service
-                             .getSector()
-                              .equals(sector) &&
-                               service
+                        .getSector()
+                        .equals(sector) &&
+                        service
                                 .getDivision()
                                 .equals(division) &&
-                                service
-                               .getHealthtest()
-                               .equals(healthtest))
-                               .collect(Collectors.toList());
+                        service
+                                .getHealthtest()
+                                .equals(healthtest))
+                .collect(Collectors.toList());
         return listAllHealthtest;
     }
 
@@ -85,9 +86,9 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
                 .filter(service -> service
                         .getSector()
                         .equals(sector) &&
-                         service
-                         .getDivision()
-                          .equals(division))
+                        service
+                                .getDivision()
+                                .equals(division))
                 .collect(Collectors.toList());
         return listAllDivision;
     }

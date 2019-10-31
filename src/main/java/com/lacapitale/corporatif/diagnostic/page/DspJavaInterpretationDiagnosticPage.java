@@ -8,8 +8,8 @@ import java.io.IOException;
 
 @SpringBootApplication
 @PropertySource({"classpath:application.properties "})
-public class Application {
+public class DspJavaInterpretationDiagnosticPage {
 	public static void main(String[] args) throws IOException {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(DspJavaInterpretationDiagnosticPage.class, args);
 	}
 }
