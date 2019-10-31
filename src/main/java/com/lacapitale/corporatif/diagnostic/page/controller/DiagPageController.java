@@ -18,28 +18,32 @@ public class DiagPageController {
     //Méthode qui retourne tous les services soit par secteur soit par secteur et division, ou par secteur division et healthtest
     @GetMapping(value = "DiagnosticPages")
     @ResponseBody
-    public List<DiagnosticPage> listOfService(@RequestParam String sector,
+    public List<DiagnosticPage> listOfService/*(@RequestParam String sector,
                                               @RequestParam String division,
                                               @RequestParam String healthtest,
-                                              @RequestParam boolean showResponse) {
-       List<DiagnosticPage> diagnosticPageListResponse = null;
+                                              @RequestParam boolean showResponse) {*/
+
+    (@RequestParam(value = "sector", required = false) String sector,
+     @RequestParam(value = "division", required = false) String division,
+     @RequestParam(value = "healthtest", required = false) String healthtest,
+     @RequestParam(value = "showResponse", required = false) boolean showResponse) {
+
+       // List<DiagnosticPage> diagnosticPageListResponse = null;
 
         if ((division == "") &&
                 (healthtest == "") &&
                 (sector != "")) {
-            diagnosticPageListResponse = diagnosticPageDao.findAllServicesBySectorNoOrResponse(sector,showResponse);
+            diagnosticPageDao.findAllServicesBySectorNoOrResponse(sector, showResponse);
         } else if ((division != "") &&
-                (sector != "") &&
-                (healthtest != "")) {
-            diagnosticPageListResponse = diagnosticPageDao.findAllByAllServicesNoOrResponse(sector, division,healthtest,showResponse);
+                   (sector != "") &&
+                   (healthtest != "")) {
+             diagnosticPageDao.findAllByAllServicesNoOrResponse(sector, division, healthtest, showResponse);
 
         } else if ((healthtest == "")
                 && (sector != "") &&
-                (division != "")) {
-            diagnosticPageListResponse = diagnosticPageDao.findAllServicesBySectorDivisionNoOrResponse(sector, division, showResponse);
-            } else {
-            diagnosticPageListResponse = diagnosticPageDao.getDataDiagPageNoResponse();
+                   (division != "")) {
+            diagnosticPageDao.findAllServicesBySectorDivisionNoOrResponse(sector, division, showResponse);
         }
-        return diagnosticPageListResponse;
+        return diagnosticPageDao.getDataDiagPageNoResponse();
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import java.io.IOException;
 
 @SpringBootApplication
-@PropertySource({"classpath:application.properties "})
+//@PropertySource({"classpath:application.properties "})
 public class DspJavaInterpretationDiagnosticPage {
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(DspJavaInterpretationDiagnosticPage.class, args);

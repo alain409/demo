@@ -45,13 +45,13 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
 
     @Override
     public List<DiagnosticPage> getListShowReponse(boolean showResponse) {
-        List<DiagnosticPage> listAllHealthtestNoOrResponse = null;
-        if (showResponse) {
-            listAllHealthtestNoOrResponse = getDataDiagPageResponse();
-        } else {
-            listAllHealthtestNoOrResponse = getDataDiagPageNoResponse();
-        }
-        return listAllHealthtestNoOrResponse;
+      //  List<DiagnosticPage> listAllHealthtestNoOrResponse = getDataDiagPageNoResponse();
+        if (showResponse) //{
+            return getDataDiagPageResponse();
+      //  } else {
+           return getDataDiagPageNoResponse();
+       // }
+
     }
 
     @Override
