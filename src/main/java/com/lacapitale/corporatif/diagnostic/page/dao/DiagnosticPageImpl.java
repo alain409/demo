@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class DiagnosticPageImpl implements DiagnosticPageDao {
+public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.page.dao.DiagnosticPageDao {
 
     private ServiceProperties serviceProperties;
     DiagnosticPageService diagnosticPageService;
+    DiagnosticPage diagnosticPage;
 
     @Override
     public List<DiagnosticPage> getDataDiagPageNoResponse() {
@@ -36,8 +37,11 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
             DiagnosticPage diagnosticPage = new DiagnosticPage(
                     dp.getName(), dp.getSector(),
                     dp.getDivision(), dp.getType(),
-                    dp.getUrl(), dp.getHealthtest(), dp.getCode(),
-                    diagnosticPageService.getResponseUrlHttpOrHttpsService(dp.getUrl()));
+                    dp.getUrl(), dp.getHealthtest(),
+                    dp.getValidationType(),
+                    diagnosticPageService.validateStatusResponse(dp.getValidationType(),dp.getUrl()),
+                    diagnosticPageService.validateBooleanStatusResponse(dp.getValidationType(),dp.getUrl()),
+                    diagnosticPageService.getStatusUrlHttpOrHttpsService(dp.getUrl()));
             listValueResult.add(diagnosticPage);
         }
         return listValueResult;
@@ -45,13 +49,12 @@ public class DiagnosticPageImpl implements DiagnosticPageDao {
 
     @Override
     public List<DiagnosticPage> getListShowReponse(boolean showResponse) {
-      //  List<DiagnosticPage> listAllHealthtestNoOrResponse = getDataDiagPageNoResponse();
+        //  List<DiagnosticPage> listAllHealthtestNoOrResponse = getDataDiagPageNoResponse();
         if (showResponse) //{
             return getDataDiagPageResponse();
-      //  } else {
-           return getDataDiagPageNoResponse();
-       // }
-
+        //  } else {
+        return getDataDiagPageNoResponse();
+        // }
     }
 
     @Override

@@ -31,7 +31,12 @@ public class ServiceProperties {
         //Resource resource = resourceLoader.getResource("classpath:diagnosticpage.json");
        // Resource resource = new ClassPathResource(fileService);
         try {
-            DiagnosticPageConfig config = new DiagnosticPageConfig();
+
+            List<DiagnosticPage> listDiagnosticPages =
+                    mapper.readValue(new FileInputStream("diagnosticpage.json"), new TypeReference<List<DiagnosticPage>>(){});
+
+
+           /* DiagnosticPageConfig config = new DiagnosticPageConfig();
 
             String diagnosticPageFilename = config.getDiagnosticPageFilename();
 
@@ -45,7 +50,7 @@ public class ServiceProperties {
 
             List<DiagnosticPage> listDiagnosticPages =
                     mapper.readValue(new File(String.valueOf(file)), new TypeReference<List<DiagnosticPage>>(){});
-
+*/
             for (DiagnosticPage diagnosticPage : listDiagnosticPages
             ) {
                 listValueResult.add(diagnosticPage);

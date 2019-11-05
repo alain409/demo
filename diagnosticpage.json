@@ -1,11 +1,25 @@
 [
   {
-    "name": "espaceConseiller",
+    "name": "espaceconseiller",
     "sector": "IND",
     "division": "AssuInd",
     "type": "Diagnostic",
     "url": "https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante",
-    "healthtest": "advisorSpace"
+    "healthtest": "espConseiller",
+    "validationType": "REGEX",
+    "validationValue": "<.+icon-echec.+>",
+    "validationStatusHealthCheck": false
+  },
+  {
+    "name": "ec-epargne",
+    "sector": "IND",
+    "division": "AssuInd",
+    "type": "Diagnostic",
+    "url": "https://espaceconseiller.lacapitale.com/epargne/testSante",
+    "healthtest": "ecEpargne",
+    "validationType": "REGEX",
+    "validationValue": "<test.sante.ok.>",
+    "validationStatusHealthCheck": true
   },
   {
     "name": "cap-courtier",
@@ -13,7 +27,10 @@
     "division": "AssuInd",
     "type": "Diagnostic",
     "url": "https://services.lacapitale.com/cap-courtier/nagios",
-    "healthtest": "capCourtier"
+    "healthtest": "capCourtier",
+    "validationType": "FINDSTRING",
+    "validationValue": "OK",
+    "validationStatusHealthCheck": true
   },
   {
     "name": "svc-corp-pubpost",
@@ -21,38 +38,31 @@
     "division": "SerCorp",
     "type": "Diagnostic",
     "url": "http://svc-corp-pubpost.capitale.qc.ca/publipostage/health",
-    "healthtest": "pubPost"
+    "healthtest": "pubPost",
+    "validationType": "REGEX",
+    "validationValue": "statu[st].:.OK",
+    "validationStatusHealthCheck": true
   },
   {
-    "name": "Clic",
+    "name": "clic",
     "sector": "COL",
     "division": "AssuCol",
     "type": "Diagnostic",
     "url": "https://clic.capitale.qc.ca/clic-webapp/clic/diagnostic",
-    "healthtest": "clic"
+    "healthtest": "clic",
+    "validationType": "REGEX",
+    "validationValue": "statu[st].:.OK",
+    "validationStatusHealthCheck": true
   },
   {
-    "name": "Agora",
-    "sector": "AFFNUM",
-    "division": "AffNum",
-    "type": "Fonctionnel",
-    "url": "https://agora2.capitale.qc.ca/welcome",
-    "healthtest": "agora"
-  },
-  {
-    "name": "Svc-rh",
-    "sector": "SERVCORP",
-    "division": "SerCorp",
-    "type": "Fonctionnel",
-    "url": "http://capdirect-sac.capitale.qc.ca/capdirect-sac/jspx/reconnaissance/reconnaissance.jspx",
-    "healthtest": "svcRh"
-  },
-  {
-    "name": "Services ass. Vie-Présentation",
+    "name": "vie-presentation",
     "sector": "SERVCORP",
     "division": "SerCorp",
     "type": "Diagnostic",
     "url": "https://nova-tuiles.capitale.qc.ca/assurance-individuelle/test-sante",
-    "healthtest": "viePresentation"
+    "healthtest": "viePresentation",
+    "validationType": "FINDSTRING",
+    "validationValue": "test-sante",
+    "validationStatusHealthCheck": true
   }
 ]

@@ -2,14 +2,12 @@ package com.lacapitale.corporatif.diagnostic.page;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.PropertySource;
 
 import java.io.IOException;
 
 @SpringBootApplication
-//@PropertySource({"classpath:application.properties "})
-public class DspJavaInterpretationDiagnosticPage {
+public class DspJavaDiagnosticToHealthCheck {
 	public static void main(String[] args) throws IOException {
-		SpringApplication.run(DspJavaInterpretationDiagnosticPage.class, args);
+		SpringApplication.run(DspJavaDiagnosticToHealthCheck.class, args);
 	}
 }

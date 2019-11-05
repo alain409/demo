@@ -1,6 +1,6 @@
 package com.lacapitale.corporatif.diagnostic.page.model;
 
-import com.lacapitale.corporatif.diagnostic.page.dao.DiagnosticPageImpl;
+import com.lacapitale.corporatif.diagnostic.page.service.DiagnosticPageService;
 import com.lacapitale.corporatif.diagnostic.page.service.DiagnosticPageService;
 
 public class DiagnosticPage {
@@ -17,20 +17,28 @@ public class DiagnosticPage {
 
     private String healthtest;
 
-    private int code;
+    private String validationType;
+
+    private String validationValue;
+
+    private boolean validationStatusHealthCheck;
 
     private StringBuffer response;
 
     private DiagnosticPageService diagnosticPageService;
 
-    public DiagnosticPage( String name, String sector, String division, String type, String url, String healthtest, int code, StringBuffer response) {
+    public DiagnosticPage(String name, String sector, String division, String type, String url, String healthtest,
+                          String validationType, String validationValue, boolean validationStatusHealthCheck, StringBuffer response) {
         this.healthtest = healthtest;
         this.name = name;
         this.sector = sector;
         this.division = division;
         this.type = type;
         this.url = url;
-        this.code = code;
+        this.healthtest = healthtest;
+        this.validationType = validationType;
+        this.validationValue = validationValue;
+        this.validationStatusHealthCheck = validationStatusHealthCheck;
         this.response = response;
     }
 
@@ -57,11 +65,33 @@ public class DiagnosticPage {
         return url;
     }
 
-    public int getCode() {
-        diagnosticPageService = new DiagnosticPageService();
+
+    public String getValidationType() {
+        //diagnosticPageService = new DiagnosticPageService();
+        //String statusResponse = diagnosticPageService.validateStatusResponse()
+        //  return statusResponse;
+        return validationType;
+    }
+
+    public String getValidationValue() {
+       /* diagnosticPageService = new DiagnosticPageService();
+        String codeResponse = diagnosticPageService.validateStatusResponse(validationType,url);
+        return codeResponse;*/
+       return  validationValue;
+    }
+
+    public boolean getValidationStatusHealthCheck() {
+       /* diagnosticPageService = new DiagnosticPageService();
+        boolean boolValidation = diagnosticPageService.validateBooleanStatusResponse(validationType,url);
+        return boolValidation;*/
+       return validationStatusHealthCheck;
+    }
+/*  public int getCode() {
+       diagnosticPageService = new DiagnosticPageService();
         int codeResponse = diagnosticPageService.getCodeResponseUrlHttpOrHttpsService(url);
         return codeResponse;
-    }
+        return code;
+    }*/
 
     public StringBuffer getResponse() {
         return response;
@@ -87,13 +117,25 @@ public class DiagnosticPage {
         this.type = type;
     }
 
+    public void setValidationStatusHealthCheck(boolean validationStatusHealthCheck) {
+        this.validationStatusHealthCheck = validationStatusHealthCheck;
+    }
+
     public void setUrl(String url) {
         this.url = url;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setValidationType(String validationType) {
+        this.validationType = validationType;
     }
+
+    public void setValidationValue(String validationValue) {
+        this.validationValue = validationValue;
+    }
+
+   /* public void setCode(int code) {
+        this.code = code;
+    }*/
 
     public void setResponse(StringBuffer response) {
         this.response = response;
@@ -112,8 +154,10 @@ public class DiagnosticPage {
                 ", type='" + type + '\'' +
                 ", url='" + url + '\'' +
                 ", healthtest='" + healthtest + '\'' +
-                ", code=" + code +
-               ", response='" + response + '\'' +
+                ", validationType='" + validationType + '\'' +
+                ", validationValue='" + validationValue + '\'' +
+                ", validationStatusHealthCheck='" + validationStatusHealthCheck + '\'' +
+                ", response='" + response + '\'' +
                 '}';
     }
 }
