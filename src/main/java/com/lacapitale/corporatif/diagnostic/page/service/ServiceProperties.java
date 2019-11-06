@@ -6,6 +6,7 @@ import com.lacapitale.corporatif.diagnostic.page.DiagnosticPageConfig;
 import com.lacapitale.corporatif.diagnostic.page.model.DiagnosticPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -18,39 +19,32 @@ import java.util.List;
 @Configuration
 public class ServiceProperties {
     private static final Logger logger = LoggerFactory.getLogger(ServiceProperties.class);
+    private DiagnosticPageConfig config;
 
-    // @Autowired
-    //  ResourceLoader resourceLoader;
-   // public List<DiagnosticPage> getFileJson(String fileService){
+     @Autowired
+     private ResourceLoader resourceLoader;
+
     public List<DiagnosticPage> getFileJson(){
         ObjectMapper mapper = new ObjectMapper();
-        // DiagnosticPage valueResult = new DiagnosticPage();
+
+        config = new DiagnosticPageConfig();
+
+        String diagnosticPageFilename = config.getDiagnosticPageFilename();
+
+        ResourceLoader resourceLoader = new DefaultResourceLoader();
+
         List<DiagnosticPage> listValueResult = new ArrayList<>();
 
+        Resource resource = resourceLoader.getResource(diagnosticPageFilename);
 
-        //Resource resource = resourceLoader.getResource("classpath:diagnosticpage.json");
-       // Resource resource = new ClassPathResource(fileService);
+        logger.info("nom du répertoire : " + diagnosticPageFilename);
+
         try {
 
+            File fileInputStream = resource.getFile();
             List<DiagnosticPage> listDiagnosticPages =
-                    mapper.readValue(new FileInputStream("diagnosticpage.json"), new TypeReference<List<DiagnosticPage>>(){});
+                    mapper.readValue(new FileInputStream(String.valueOf(fileInputStream)), new TypeReference<List<DiagnosticPage>>(){});
 
-
-           /* DiagnosticPageConfig config = new DiagnosticPageConfig();
-
-            String diagnosticPageFilename = config.getDiagnosticPageFilename();
-
-            logger.info("nom du répertoire : " + diagnosticPageFilename);
-
-            ResourceLoader resourceLoader = new DefaultResourceLoader();
-
-            Resource resource = resourceLoader.getResource(diagnosticPageFilename);
-
-            File file = resource.getFile();
-
-            List<DiagnosticPage> listDiagnosticPages =
-                    mapper.readValue(new File(String.valueOf(file)), new TypeReference<List<DiagnosticPage>>(){});
-*/
             for (DiagnosticPage diagnosticPage : listDiagnosticPages
             ) {
                 listValueResult.add(diagnosticPage);

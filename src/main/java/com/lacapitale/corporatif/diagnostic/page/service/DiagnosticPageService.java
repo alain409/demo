@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class DiagnosticPageService {
     private RestTemplate restTemplate;
     private DiagnosticPageImpl diagnosticPageImpl;
+    private DiagnosticPage diagnosticPage;
 
     public DiagnosticPageService() {
     }
@@ -109,90 +110,45 @@ public class DiagnosticPageService {
         return response;
     }
 
-    //Cette méthode va éguiller les valeurs de validation type
-    public List<String> redirectValidationType(String valueValidationType)
-    {
-        diagnosticPageImpl = new DiagnosticPageImpl();
-        List<DiagnosticPage> listAllValidationType = null;
-        List<DiagnosticPage> listDiagnostic = new ArrayList<>();
-        List<String> tabDiagnostic = new ArrayList<>();
-        switch(valueValidationType) {
-            case "REGEX":
-                listAllValidationType = diagnosticPageImpl.getDataDiagPageNoResponse().stream()
-                        .filter(service -> service
-                                .getValidationType()
-                                .equals("REGEX"))
-                        .collect(Collectors.toList());
-                break;
-            case "FINDSTRING":
-                listAllValidationType = diagnosticPageImpl.getDataDiagPageNoResponse().stream()
-                        .filter(service -> service
-                                .getValidationType()
-                                .equals("FINDSTRING"))
-                        .collect(Collectors.toList());
-                break;
-            default:
-                break;
-        }
-
-        for (DiagnosticPage dp : listAllValidationType
-        ) {
-            DiagnosticPage diagnosticPage = new DiagnosticPage(
-                    dp.getName(), dp.getSector(),
-                    dp.getDivision(), dp.getType(),
-                    dp.getUrl(), dp.getHealthtest(),
-                    dp.getValidationType(),
-                    dp.getValidationValue(),
-                    dp.getValidationStatusHealthCheck(),
-                    dp.getResponse());
-            tabDiagnostic.add(dp.getValidationValue());
-            listDiagnostic.add(dp);
-        }
-        return tabDiagnostic;
+    //Méthode pour matcher les validations value Regex  des tests
+    public String checkRegexResponse(DiagnosticPage dp){
+        String resultRegexMatchValue = "";
+            String validationResponse =
+                    getStatusUrlHttpOrHttpsService(dp.getUrl()).toString();
+            String patternString = dp.getValidationValue();
+            Pattern pattern = Pattern.compile(patternString, Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(validationResponse);
+                if (matcher.matches()) {
+                    resultRegexMatchValue = patternString.trim();
+                }
+        return resultRegexMatchValue;
     }
 
-    //Méthode retourner une réponse à un url
-  /*  public final String getResponseUrlService(String url){
-        diagnosticPageImpl = new DiagnosticPageImpl();
-        url = listToValidateResponse().getUrl();
-        restTemplate = new RestTemplate();
-        final String response = restTemplate.getForObject(url, String.class);
-        return response;
-    }*/
-
-    //Méthode pour valider le statut de la réponse
-    public String validateStatusResponse(String validationType, String url) {
+    //Méthode pour matcher les validations value FindString des tests
+    public String checkFindStringResponse(DiagnosticPage dp) {
         String retMatcher = "";
-        for (String str : redirectValidationType(validationType)
-        ) {
-            Pattern pattern = Pattern.compile(str, Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(getStatusUrlHttpOrHttpsService(url));
-            while (matcher.find()) {
-               if (matcher.group().length() != 0) {
-                    retMatcher = matcher.group().trim();
-                }
-            }
+        String validationResponse =
+                getStatusUrlHttpOrHttpsService(dp.getUrl()).toString();
+        if(validationResponse.contains(dp.getValidationValue())){
+            retMatcher = dp.getValidationValue();
         }
         return retMatcher;
     }
 
-    //Méthode pour retourner vrai ou faux si le regex match
-    public boolean validateBooleanStatusResponse(String validationType, String url) {
-        boolean retMatcher = false;
-        for (String str : redirectValidationType(validationType)
-        ) {
-            Pattern pattern = Pattern.compile(str, Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(getStatusUrlHttpOrHttpsService(url));
-           while (matcher.find()) {
-                if (str == "<.+icon-echec.+>") {
-                    retMatcher = false;
-                }else{
-                    retMatcher = true;
-                }
-           }
+    //Méthode pour tester les validations Regex value des tests
+    public boolean executeHealthToCheckService(DiagnosticPage diagnosticPage){
+       //boolean boolValidationValue = false;
+
+        if(diagnosticPage.getValidationType() == "REGEX"){
+            checkRegexResponse(diagnosticPage);
+            //boolValidationValue = diagnosticPage.getValidationStatusHealthCheck();
+        }else if(diagnosticPage.getValidationType() == "FINDSTRING"){
+            checkFindStringResponse(diagnosticPage);
         }
-        return retMatcher;
+       // return boolValidationValue;
+        return diagnosticPage.getValidationStatusHealthCheck();
     }
+
     //Pour obtenir un code de réponse pour la requête Http
    /* public int getCodeResponseUrlHttpOrHttpsService(String url) {
         int code = 0;
@@ -212,39 +168,12 @@ public class DiagnosticPageService {
         return code;
     }*/
 
-    //Méthode pour valider le code de la réponse
-  /*  public int validateCode200Response(String url){
-        String retMatcher = "";
-        int code = 0;
-        diagnosticPageImpl = new DiagnosticPageImpl();
-        for (DiagnosticPage dp : diagnosticPageImpl.getDataDiagPageNoResponse()
-        ) {
-            DiagnosticPage diagnosticPage = new DiagnosticPage(
-                    dp.getName(), dp.getSector(),
-                    dp.getDivision(), dp.getType(),
-                    dp.getUrl(), dp.getHealthtest(),
-                    dp.getValidationType(),
-                    dp.getValidationValue(),
-                    dp.getResponse());
-            code = dp.getValidationValue();
-            url = dp.getUrl();
-        }
-        Pattern pattern = Pattern.compile(String.valueOf(code));
-        Matcher matcher = pattern.matcher(getResponseUrlService(url));
-        while(matcher.find()){
-            if(matcher.group().length() != 0){
-                retMatcher = matcher.group().trim();
-            }
-        }
-        return Integer.parseInt(retMatcher);
-    }*/
-
     public static void main(String[] args) {
         DiagnosticPageService diagnosticPageService = new DiagnosticPageService();
         DiagnosticPage diagnosticPage = new DiagnosticPage();
         DiagnosticPageImpl diagnosticPage1 = new DiagnosticPageImpl();
         String url = diagnosticPage.getUrl();
-        // System.out.println(diagnosticPageService.validateStatusResponse("https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante"));
+        System.out.println(diagnosticPageService.checkRegexResponse(diagnosticPage));
         // System.out.println(diagnosticPageService.getStatusValidation());
         //System.out.println(diagnosticPageService.validateStatusResponse("FINDSTRING", "https://espaceconseiller.lacapitale.com/epargne/testSante"));
     }

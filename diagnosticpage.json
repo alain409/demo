@@ -7,8 +7,8 @@
     "url": "https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante",
     "healthtest": "espConseiller",
     "validationType": "REGEX",
-    "validationValue": "<.+icon-echec.+>",
-    "validationStatusHealthCheck": false
+    "validationValue": "<.+icon-succes.+>",
+    "validationStatusHealthCheck": true
   },
   {
     "name": "ec-epargne",
@@ -40,7 +40,7 @@
     "url": "http://svc-corp-pubpost.capitale.qc.ca/publipostage/health",
     "healthtest": "pubPost",
     "validationType": "REGEX",
-    "validationValue": "statu[st].:.OK",
+    "validationValue": "statu[st].:.UP",
     "validationStatusHealthCheck": true
   },
   {

@@ -39,8 +39,8 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
                     dp.getDivision(), dp.getType(),
                     dp.getUrl(), dp.getHealthtest(),
                     dp.getValidationType(),
-                    diagnosticPageService.validateStatusResponse(dp.getValidationType(),dp.getUrl()),
-                    diagnosticPageService.validateBooleanStatusResponse(dp.getValidationType(),dp.getUrl()),
+                    diagnosticPageService.checkRegexResponse(dp),
+                    diagnosticPageService.executeHealthToCheckService(dp),
                     diagnosticPageService.getStatusUrlHttpOrHttpsService(dp.getUrl()));
             listValueResult.add(diagnosticPage);
         }

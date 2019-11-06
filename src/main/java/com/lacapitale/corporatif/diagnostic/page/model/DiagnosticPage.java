@@ -74,7 +74,7 @@ public class DiagnosticPage {
     }
 
     public String getValidationValue() {
-       /* diagnosticPageService = new DiagnosticPageService();
+      /* diagnosticPageService = new DiagnosticPageService();
         String codeResponse = diagnosticPageService.validateStatusResponse(validationType,url);
         return codeResponse;*/
        return  validationValue;
