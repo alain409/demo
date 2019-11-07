@@ -7,7 +7,7 @@
     "url": "https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante",
     "healthtest": "espConseiller",
     "validationType": "REGEX",
-    "validationValue": "<.+icon-succes.+>",
+    "validationValue": "<td\\s*class\\s*=\\s*.icon-succes..\\s*>+",
     "validationStatusHealthCheck": true
   },
   {

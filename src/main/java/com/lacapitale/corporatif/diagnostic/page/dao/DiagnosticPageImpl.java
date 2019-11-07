@@ -19,13 +19,17 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     @Override
     public List<DiagnosticPage> getDataDiagPageNoResponse() {
         serviceProperties = new ServiceProperties();
-        // return serviceProperties.getFileJson("diagnosticpage.json");
         return serviceProperties.getFileJson();
     }
 
     @Override
-    public List<DiagnosticPage> findAll() {
+    public List<DiagnosticPage> findAllWithNoResponse() {
         return getDataDiagPageNoResponse();
+    }
+
+    @Override
+    public List<DiagnosticPage> findAllWithResponse() {
+        return getDataDiagPageResponse();
     }
 
     @Override
@@ -48,18 +52,15 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
-    public List<DiagnosticPage> getListShowReponse(boolean showResponse) {
-        //  List<DiagnosticPage> listAllHealthtestNoOrResponse = getDataDiagPageNoResponse();
-        if (showResponse) //{
-            return getDataDiagPageResponse();
-        //  } else {
-        return getDataDiagPageNoResponse();
-        // }
+    public List<DiagnosticPage> getListShowResponse(boolean showResponse) {
+        if (showResponse)
+          return findAllWithResponse();
+        return findAllWithNoResponse();
     }
 
     @Override
     public List<DiagnosticPage> findAllByAllServicesNoOrResponse(String sector, String division, String healthtest, boolean showResponse) {
-        final List<DiagnosticPage> listAllHealthtest = getListShowReponse(showResponse).stream()
+        final List<DiagnosticPage> listAllHealthtest = getListShowResponse(showResponse).stream()
                 .filter(service -> service
                         .getSector()
                         .equals(sector) &&
@@ -75,24 +76,24 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
 
     @Override
     public List<DiagnosticPage> findAllServicesBySectorNoOrResponse(String sector, boolean showResponse) {
-        final List<DiagnosticPage> listAllSector = getListShowReponse(showResponse).stream()
+        final List<DiagnosticPage> listAllSector = getListShowResponse(showResponse).stream()
                 .filter(service -> service
                         .getSector()
                         .equals(sector))
-                .collect(Collectors.toList());
+                          .collect(Collectors.toList());
         return listAllSector;
     }
 
     @Override
     public List<DiagnosticPage> findAllServicesBySectorDivisionNoOrResponse(String sector, String division, boolean showResponse) {
-        final List<DiagnosticPage> listAllDivision = getListShowReponse(showResponse).stream()
+        final List<DiagnosticPage> listAllDivision = getListShowResponse(showResponse).stream()
                 .filter(service -> service
                         .getSector()
                         .equals(sector) &&
-                        service
+                                service
                                 .getDivision()
                                 .equals(division))
-                .collect(Collectors.toList());
+                          .collect(Collectors.toList());
         return listAllDivision;
     }
 }
