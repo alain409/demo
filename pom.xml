@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.lacapitale.corporatif.diagnostic.page</groupId>
-	<artifactId>dsp-java-diagnosticToHealthCheck</artifactId>
+	<artifactId>svc-dsp-diagnosticToHealthCheck</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>dsp-java-diagnosticToHealthCheck</name>
 	<description>Interpretation Diagnostic Page project for Spring Boot</description>
