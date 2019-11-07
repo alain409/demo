@@ -81,8 +81,8 @@ public class DiagnosticPage {
     }
 
     public boolean getValidationStatusHealthCheck() {
-       /* diagnosticPageService = new DiagnosticPageService();
-        boolean boolValidation = diagnosticPageService.validateBooleanStatusResponse(validationType,url);
+/*        diagnosticPageService = new DiagnosticPageService();
+        boolean boolValidation = diagnosticPageService.executeHealthToCheckService(this);
         return boolValidation;*/
        return validationStatusHealthCheck;
     }

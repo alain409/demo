@@ -118,9 +118,11 @@ public class DiagnosticPageService {
             String patternString = dp.getValidationValue();
             Pattern pattern = Pattern.compile(patternString, Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(validationResponse);
-                if (matcher.matches()) {
-                    resultRegexMatchValue = patternString.trim();
-                }
+        while (matcher.find()) {
+           // if (matcher.matches()) {
+                resultRegexMatchValue = matcher.group();
+           // }
+        }
         return resultRegexMatchValue;
     }
 
