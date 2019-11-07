@@ -6,11 +6,11 @@ def runStage( pNamespace, pTagImage ) {
 
     SONAR_QUBE=false
 
-    stage ('build jar') {
+/*    stage ('build jar') {
         dir ('app') {
             sh "./mvnw clean package spring-boot:repackage"
         }
-    }
+    }*/
 
     //stage ('static code analysis') {
     //  dir ('app') {

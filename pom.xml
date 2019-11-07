@@ -1,31 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>com.lacapitale.corporatif.diagnostic.page</groupId>
-	<artifactId>dsp-java-diagnosticToHealthCheck</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>dsp-java-diagnosticToHealthCheck</name>
-	<description>Interpretation Diagnostic Page project for Spring Boot</description>
+	<artifactId>svc-dsp-diagnosticToHealthCheck</artifactId>
+	<version>4.0.0</version>
+	<packaging>jar</packaging>
+	<description>Route d'intégration pour Atlas (liste des sinistres)</description>
 
 	<properties>
+		<app.name>svc-dsp-diagnosticToHealthCheck</app.name>
+		<jdk.version>1.12</jdk.version>
+		<maven.compiler.source>${jdk.version}</maven.compiler.source>
+		<maven.compiler.target>${jdk.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<jdk.version>1.12</jdk.version>
+		<spring.boot-version>2.0.3.RELEASE</spring.boot-version>
 	</properties>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.8.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+	<distributionManagement>
+		<repository>
+			<id>sedo-artifactory.capitale.qc.ca</id>
+			<name>sedo-artifactory.capitale.qc.ca-releases</name>
+			<url>http://sedo-artifactory.capitale.qc.ca/artifactory/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>sedo-artifactory.capitale.qc.ca</id>
+			<name>sedo-artifactory.capitale.qc.ca-snapshots</name>
+			<url>http://sedo-artifactory.capitale.qc.ca/artifactory/libs-snapshot-local</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>release</id>
+			<name>sedo-artifactory</name>
+			<url>http://sedo-artifactory.capitale.qc.ca/artifactory/libs-release-local</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>snapshot</id>
+			<name>sedo-artifactory</name>
+			<url>http://sedo-artifactory.capitale.qc.ca/artifactory/libs-snapshot-local</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Spring Boot BOM -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>5.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+			<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
@@ -33,31 +96,68 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
-			<groupId>net.minidev</groupId>
-			<artifactId>json-smart</artifactId>
-			<version>2.3</version>
-			<scope>compile</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.skyscreamer</groupId>
-			<artifactId>jsonassert</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-        </dependency>
 
     </dependencies>
 
 	<build>
-		<finalName>dsp-java-diagnosticToHealthCheck-0.0.1-SNAPSHOT</finalName>
+		<finalName>${app.name}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot-version}</version>
+				<configuration>
+					<profiles>
+						<profile>devl</profile>
+						<profile>test</profile>
+						<profile>prod</profile>
+					</profiles>
+					<jvmArguments>
+					</jvmArguments>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>jdk8-build</id>
+			<activation>
+				<jdk>8</jdk>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<argLine>--add-modules java.xml.bind --add-opens
+								java.base/java.lang=ALL-UNNAMED</argLine>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
