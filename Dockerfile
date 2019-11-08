@@ -11,7 +11,7 @@ ADD ./diagnosticpage.json diagnosticpage.json
 
 ENTRYPOINT ["java"]
 
-EXPOSE 9080
+EXPOSE 8080
 EXPOSE 8778
 
 USER root
