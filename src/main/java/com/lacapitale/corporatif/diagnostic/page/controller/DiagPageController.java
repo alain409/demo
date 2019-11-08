@@ -31,8 +31,8 @@ public class DiagPageController {
             return diagnosticPageDao.findAllServicesBySectorDivisionNoOrResponse(secService, divService, showResService);
         }else if((secService != null) && (divService != null) && (healthtestService != null)) {
             return diagnosticPageDao.findAllByAllServicesNoOrResponse(secService, divService, healthtestService, showResService);
-      }
-       return diagnosticPageDao.getDataDiagPageNoResponse();
+        }
+        return diagnosticPageDao.getAllServicesNoResponse();
     }
 
 }

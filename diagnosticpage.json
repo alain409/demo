@@ -4,11 +4,24 @@
     "sector": "IND",
     "division": "AssuInd",
     "type": "Diagnostic",
+    "url": "https://s02-devl-espaceconseiller.web.lacapitale.com/espaceconseiller/test-sante",
+    "healthtest": "espConseillerFail",
+    "validationType": "REGEX",
+    "validationValue": "<td\\s*class\\s*=\\s*.icon-echec..\\s*>+",
+    "validationStatusHealthCheck": false,
+    "validationStateHealthCheck": "ERROR"
+  },
+  {
+    "name": "espaceconseiller",
+    "sector": "IND",
+    "division": "AssuInd",
+    "type": "Diagnostic",
     "url": "https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante",
     "healthtest": "espConseiller",
     "validationType": "REGEX",
     "validationValue": "<td\\s*class\\s*=\\s*.icon-succes..\\s*>+",
-    "validationStatusHealthCheck": true
+    "validationStatusHealthCheck": true,
+    "validationStateHealthCheck": "SUCCES"
   },
   {
     "name": "ec-epargne",
@@ -19,7 +32,8 @@
     "healthtest": "ecEpargne",
     "validationType": "REGEX",
     "validationValue": "<test.sante.ok.>",
-    "validationStatusHealthCheck": true
+    "validationStatusHealthCheck": true,
+    "validationStateHealthCheck": "SUCCES"
   },
   {
     "name": "cap-courtier",
@@ -30,7 +44,8 @@
     "healthtest": "capCourtier",
     "validationType": "FINDSTRING",
     "validationValue": "OK",
-    "validationStatusHealthCheck": true
+    "validationStatusHealthCheck": true,
+    "validationStateHealthCheck": "SUCCES"
   },
   {
     "name": "svc-corp-pubpost",
@@ -41,7 +56,8 @@
     "healthtest": "pubPost",
     "validationType": "REGEX",
     "validationValue": "statu[st].:.UP",
-    "validationStatusHealthCheck": true
+    "validationStatusHealthCheck": true,
+    "validationStateHealthCheck": "SUCCES"
   },
   {
     "name": "clic",
@@ -52,7 +68,8 @@
     "healthtest": "clic",
     "validationType": "REGEX",
     "validationValue": "statu[st].:.OK",
-    "validationStatusHealthCheck": true
+    "validationStatusHealthCheck": true,
+    "validationStateHealthCheck": "SUCCES"
   },
   {
     "name": "vie-presentation",
@@ -63,6 +80,7 @@
     "healthtest": "viePresentation",
     "validationType": "FINDSTRING",
     "validationValue": "test-sante",
-    "validationStatusHealthCheck": true
+    "validationStatusHealthCheck": true,
+    "validationStateHealthCheck": "SUCCES"
   }
 ]

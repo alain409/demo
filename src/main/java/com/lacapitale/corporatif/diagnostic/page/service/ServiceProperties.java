@@ -21,8 +21,8 @@ public class ServiceProperties {
     private static final Logger logger = LoggerFactory.getLogger(ServiceProperties.class);
     private DiagnosticPageConfig config;
 
-     @Autowired
-     private ResourceLoader resourceLoader;
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     public List<DiagnosticPage> getFileJson(){
         ObjectMapper mapper = new ObjectMapper();

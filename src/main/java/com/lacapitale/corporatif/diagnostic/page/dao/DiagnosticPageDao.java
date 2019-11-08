@@ -6,20 +6,22 @@ import java.util.List;
 
 public interface DiagnosticPageDao {
 
-    public List<DiagnosticPage> getDataDiagPageNoResponse();
+    public List<DiagnosticPage> getAllDiagnosticPageModel();
 
-    public List<DiagnosticPage> getDataDiagPageResponse();
+    public List<DiagnosticPage> findAllServicesNoResponse();
 
-    public List<DiagnosticPage> findAllWithNoResponse();
+    public List<DiagnosticPage> findAllServicesWithResponse();
 
-    public List<DiagnosticPage> findAllWithResponse();
+    public List<DiagnosticPage> getAllServicesWithResponse();
+
+    public List<DiagnosticPage> getAllServicesNoResponse();
 
     public List<DiagnosticPage> getListShowResponse(boolean showResponse);
 
     public List<DiagnosticPage> findAllByAllServicesNoOrResponse(String sector, String division,String healthtest, boolean showResponse);
 
-   public List<DiagnosticPage> findAllServicesBySectorNoOrResponse(String sector, boolean showResponse);
+    public List<DiagnosticPage> findAllServicesBySectorNoOrResponse(String sector, boolean showResponse);
 
-   public List<DiagnosticPage> findAllServicesBySectorDivisionNoOrResponse(String sector, String division, boolean showResponse);
+    public List<DiagnosticPage> findAllServicesBySectorDivisionNoOrResponse(String sector, String division, boolean showResponse);
 
 }

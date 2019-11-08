@@ -1,9 +1,10 @@
 package com.lacapitale.corporatif.diagnostic.page.model;
 
-import com.lacapitale.corporatif.diagnostic.page.service.DiagnosticPageService;
-import com.lacapitale.corporatif.diagnostic.page.service.DiagnosticPageService;
+import java.util.List;
 
 public class DiagnosticPage {
+
+    private List<String> listUrlsHealthCheckError;
 
     private String name;
 
@@ -23,13 +24,16 @@ public class DiagnosticPage {
 
     private boolean validationStatusHealthCheck;
 
+    private String validationStateHealthCheck;
+
     private StringBuffer response;
 
-    private DiagnosticPageService diagnosticPageService;
+    public DiagnosticPage(List<String> urlsHealthCheckError, String name, String sector, String division,
+                                String type, String url, String healthtest, String validationType,
+                                 String validationValue, boolean validationStatusHealthCheck, String validationStateHealthCheck,
+                                  StringBuffer response) {
 
-    public DiagnosticPage(String name, String sector, String division, String type, String url, String healthtest,
-                          String validationType, String validationValue, boolean validationStatusHealthCheck, StringBuffer response) {
-        this.healthtest = healthtest;
+        this.listUrlsHealthCheckError = urlsHealthCheckError;
         this.name = name;
         this.sector = sector;
         this.division = division;
@@ -39,10 +43,15 @@ public class DiagnosticPage {
         this.validationType = validationType;
         this.validationValue = validationValue;
         this.validationStatusHealthCheck = validationStatusHealthCheck;
+        this.validationStateHealthCheck = validationStateHealthCheck;
         this.response = response;
     }
 
     public DiagnosticPage() {
+    }
+
+    public List<String> getListUrlsHealthCheckError() {
+        return listUrlsHealthCheckError;
     }
 
     public String getName() {
@@ -65,26 +74,20 @@ public class DiagnosticPage {
         return url;
     }
 
+    public String getHealthtest() {
+        return healthtest;
+    }
 
     public String getValidationType() {
-        //diagnosticPageService = new DiagnosticPageService();
-        //String statusResponse = diagnosticPageService.validateStatusResponse()
-        //  return statusResponse;
         return validationType;
     }
 
     public String getValidationValue() {
-      /* diagnosticPageService = new DiagnosticPageService();
-        String codeResponse = diagnosticPageService.validateStatusResponse(validationType,url);
-        return codeResponse;*/
-       return  validationValue;
+        return  validationValue;
     }
 
     public boolean getValidationStatusHealthCheck() {
-/*        diagnosticPageService = new DiagnosticPageService();
-        boolean boolValidation = diagnosticPageService.executeHealthToCheckService(this);
-        return boolValidation;*/
-       return validationStatusHealthCheck;
+        return validationStatusHealthCheck;
     }
 /*  public int getCode() {
        diagnosticPageService = new DiagnosticPageService();
@@ -92,13 +95,14 @@ public class DiagnosticPage {
         return codeResponse;
         return code;
     }*/
+    public String getValidationStateHealthCheck(){return validationStateHealthCheck;}
 
     public StringBuffer getResponse() {
         return response;
     }
 
-    public String getHealthtest() {
-        return healthtest;
+    public void setListUrlsHealthCheckError(List<String> listUrlsHealthCheckError) {
+        this.listUrlsHealthCheckError = listUrlsHealthCheckError;
     }
 
     public void setName(String name) {
@@ -117,12 +121,12 @@ public class DiagnosticPage {
         this.type = type;
     }
 
-    public void setValidationStatusHealthCheck(boolean validationStatusHealthCheck) {
-        this.validationStatusHealthCheck = validationStatusHealthCheck;
-    }
-
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public void setHealthtest(String healthtest) {
+        this.healthtest = healthtest;
     }
 
     public void setValidationType(String validationType) {
@@ -136,19 +140,23 @@ public class DiagnosticPage {
    /* public void setCode(int code) {
         this.code = code;
     }*/
+   public void setValidationStatusHealthCheck(boolean validationStatusHealthCheck) {
+       this.validationStatusHealthCheck = validationStatusHealthCheck;
+   }
+
+   public void setValidationStateHealthCheck(String validationStateHealthCheck){
+       this.validationStateHealthCheck = validationStateHealthCheck;
+   }
 
     public void setResponse(StringBuffer response) {
         this.response = response;
     }
 
-    public void setHealthtest(String healthtest) {
-        this.healthtest = healthtest;
-    }
-
     @Override
     public String toString() {
         return "DiagnosticPage{" +
-                "name='" + name + '\'' +
+                "listUrlsHealthCheckError=" + listUrlsHealthCheckError +
+                ", name='" + name + '\'' +
                 ", sector='" + sector + '\'' +
                 ", division='" + division + '\'' +
                 ", type='" + type + '\'' +
@@ -156,8 +164,9 @@ public class DiagnosticPage {
                 ", healthtest='" + healthtest + '\'' +
                 ", validationType='" + validationType + '\'' +
                 ", validationValue='" + validationValue + '\'' +
-                ", validationStatusHealthCheck='" + validationStatusHealthCheck + '\'' +
-                ", response='" + response + '\'' +
+                ", validationStatusHealthCheck=" + validationStatusHealthCheck +
+                ", validationStateHealthCheck='" + validationStateHealthCheck + '\'' +
+                ", response=" + response +
                 '}';
     }
 }

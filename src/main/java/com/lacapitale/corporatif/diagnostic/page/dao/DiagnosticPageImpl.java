@@ -14,48 +14,70 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
 
     private ServiceProperties serviceProperties;
     DiagnosticPageService diagnosticPageService;
-    DiagnosticPage diagnosticPage;
 
     @Override
-    public List<DiagnosticPage> getDataDiagPageNoResponse() {
+    public List<DiagnosticPage> getAllDiagnosticPageModel() {
         serviceProperties = new ServiceProperties();
         return serviceProperties.getFileJson();
     }
 
     @Override
-    public List<DiagnosticPage> findAllWithNoResponse() {
-        return getDataDiagPageNoResponse();
-    }
-
-    @Override
-    public List<DiagnosticPage> findAllWithResponse() {
-        return getDataDiagPageResponse();
-    }
-
-    @Override
-    public List<DiagnosticPage> getDataDiagPageResponse() {
-        List<DiagnosticPage> listValueResult = new ArrayList<>();
+    public List<DiagnosticPage> findAllServicesNoResponse() {
+        List<DiagnosticPage> listValueResultNoResponse = new ArrayList<>();
         diagnosticPageService = new DiagnosticPageService();
-        for (DiagnosticPage dp : getDataDiagPageNoResponse()
+        for (DiagnosticPage dp : getAllDiagnosticPageModel()
         ) {
             DiagnosticPage diagnosticPage = new DiagnosticPage(
+                    diagnosticPageService.getUrlsHealthCheckError(dp),
                     dp.getName(), dp.getSector(),
                     dp.getDivision(), dp.getType(),
                     dp.getUrl(), dp.getHealthtest(),
                     dp.getValidationType(),
-                    diagnosticPageService.checkRegexResponse(dp),
+                    diagnosticPageService.getMatchValidationValue(dp),
                     diagnosticPageService.executeHealthToCheckService(dp),
-                    diagnosticPageService.getStatusUrlHttpOrHttpsService(dp.getUrl()));
-            listValueResult.add(diagnosticPage);
+                    dp.getValidationStateHealthCheck(),
+                    dp.getResponse());
+            listValueResultNoResponse.add(diagnosticPage);
         }
-        return listValueResult;
+        return listValueResultNoResponse;
+    }
+
+    @Override
+    public List<DiagnosticPage> findAllServicesWithResponse() {
+        List<DiagnosticPage> listValueResultWithResponse = new ArrayList<>();
+        diagnosticPageService = new DiagnosticPageService();
+        for (DiagnosticPage dp : getAllDiagnosticPageModel()
+        ) {
+            DiagnosticPage diagnosticPage = new DiagnosticPage(
+                    diagnosticPageService.getUrlsHealthCheckError(dp),
+                    dp.getName(), dp.getSector(),
+                    dp.getDivision(), dp.getType(),
+                    dp.getUrl(), dp.getHealthtest(),
+                    dp.getValidationType(),
+                    diagnosticPageService.getMatchValidationValue(dp),
+                    diagnosticPageService.executeHealthToCheckService(dp),
+                    dp.getValidationStateHealthCheck(),
+                    diagnosticPageService.getStatusUrlHttpOrHttpsService(dp.getUrl()));
+            listValueResultWithResponse.add(diagnosticPage);
+        }
+        return listValueResultWithResponse;
+    }
+
+    @Override
+    public List<DiagnosticPage> getAllServicesWithResponse() {
+        return findAllServicesWithResponse();
+    }
+
+    @Override
+    public List<DiagnosticPage> getAllServicesNoResponse() {
+        return findAllServicesNoResponse();
     }
 
     @Override
     public List<DiagnosticPage> getListShowResponse(boolean showResponse) {
         if (showResponse)
-          return findAllWithResponse();
-        return findAllWithNoResponse();
+            return getAllServicesWithResponse();
+        return getAllServicesNoResponse();
     }
 
     @Override
@@ -80,7 +102,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
                 .filter(service -> service
                         .getSector()
                         .equals(sector))
-                          .collect(Collectors.toList());
+                .collect(Collectors.toList());
         return listAllSector;
     }
 
@@ -90,10 +112,10 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
                 .filter(service -> service
                         .getSector()
                         .equals(sector) &&
-                                service
+                        service
                                 .getDivision()
                                 .equals(division))
-                          .collect(Collectors.toList());
+                .collect(Collectors.toList());
         return listAllDivision;
     }
 }
