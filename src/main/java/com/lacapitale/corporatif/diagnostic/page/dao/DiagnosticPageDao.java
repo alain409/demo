@@ -16,7 +16,19 @@ public interface DiagnosticPageDao {
 
     public List<DiagnosticPage> getAllServicesNoResponse();
 
+    public DiagnosticPage findAllServicesWithResponseWithUrlsError();
+
+    public DiagnosticPage findAllServicesNoResponseWithUrlsError();
+
     public List<DiagnosticPage> getListShowResponse(boolean showResponse);
+
+    public List<DiagnosticPage> getAllServicesWithResponseUrlsError();
+
+    public List<DiagnosticPage> getAllServicesNoResponseUrlsError();
+
+    public List<DiagnosticPage> getAllServicesNoOrWithResponseUrlsError(boolean showResponse);
+
+    public DiagnosticPage getDiagnosticPageShowResponseUrlsError(boolean showResponse);
 
     public List<DiagnosticPage> findAllByAllServicesNoOrResponse(String sector, String division,String healthtest, boolean showResponse);
 

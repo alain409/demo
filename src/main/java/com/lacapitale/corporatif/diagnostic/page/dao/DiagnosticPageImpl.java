@@ -1,5 +1,6 @@
 package com.lacapitale.corporatif.diagnostic.page.dao;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lacapitale.corporatif.diagnostic.page.model.DiagnosticPage;
 import com.lacapitale.corporatif.diagnostic.page.service.DiagnosticPageService;
 import com.lacapitale.corporatif.diagnostic.page.service.ServiceProperties;
@@ -28,7 +29,6 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
         for (DiagnosticPage dp : getAllDiagnosticPageModel()
         ) {
             DiagnosticPage diagnosticPage = new DiagnosticPage(
-                    diagnosticPageService.getUrlsHealthCheckError(dp),
                     dp.getName(), dp.getSector(),
                     dp.getDivision(), dp.getType(),
                     dp.getUrl(), dp.getHealthtest(),
@@ -49,7 +49,6 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
         for (DiagnosticPage dp : getAllDiagnosticPageModel()
         ) {
             DiagnosticPage diagnosticPage = new DiagnosticPage(
-                    diagnosticPageService.getUrlsHealthCheckError(dp),
                     dp.getName(), dp.getSector(),
                     dp.getDivision(), dp.getType(),
                     dp.getUrl(), dp.getHealthtest(),
@@ -65,12 +64,56 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
 
     @Override
     public List<DiagnosticPage> getAllServicesWithResponse() {
-        return findAllServicesWithResponse();
+       return findAllServicesWithResponse();
     }
 
     @Override
     public List<DiagnosticPage> getAllServicesNoResponse() {
         return findAllServicesNoResponse();
+    }
+
+    @Override
+    public DiagnosticPage findAllServicesWithResponseWithUrlsError() {
+        diagnosticPageService = new DiagnosticPageService();
+        DiagnosticPage diagnosticPageWithResponseError = null;
+
+
+      for (DiagnosticPage dp : findAllServicesWithResponse()
+        ) {
+            diagnosticPageWithResponseError = new DiagnosticPage(
+                    diagnosticPageService.getStatusResultDiagnosticHealthCheck(dp),
+                    diagnosticPageService.getListUrlsHealthCheckError(dp));
+        }
+        return diagnosticPageWithResponseError;
+    }
+
+    @Override
+    public DiagnosticPage findAllServicesNoResponseWithUrlsError() {
+        diagnosticPageService = new DiagnosticPageService();
+        DiagnosticPage diagnosticPageNoResponseError = null;
+        for (DiagnosticPage dp : findAllServicesNoResponse()
+        ) {
+            diagnosticPageNoResponseError = new DiagnosticPage(
+                    diagnosticPageService.getStatusResultDiagnosticHealthCheck(dp),
+                    diagnosticPageService.getListUrlsHealthCheckError(dp));
+        }
+        return diagnosticPageNoResponseError;
+    }
+
+    @Override
+    public List<DiagnosticPage> getAllServicesWithResponseUrlsError() {
+        List<DiagnosticPage> globalListServicesWithResponseUrlsError = new ArrayList<>();
+        globalListServicesWithResponseUrlsError.add(findAllServicesWithResponseWithUrlsError());
+        globalListServicesWithResponseUrlsError.addAll(getAllServicesWithResponse());
+        return globalListServicesWithResponseUrlsError;
+    }
+
+    @Override
+    public List<DiagnosticPage> getAllServicesNoResponseUrlsError() {
+        List<DiagnosticPage> globalListServicesNoResponseUrlsError = new ArrayList<>();
+        globalListServicesNoResponseUrlsError.add(findAllServicesNoResponseWithUrlsError());
+        globalListServicesNoResponseUrlsError.addAll(getAllServicesNoResponse());
+        return globalListServicesNoResponseUrlsError;
     }
 
     @Override
@@ -81,7 +124,23 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    public DiagnosticPage getDiagnosticPageShowResponseUrlsError(boolean showResponse) {
+        if (showResponse)
+            return findAllServicesWithResponseWithUrlsError();
+        return findAllServicesNoResponseWithUrlsError();
+    }
+
+    @Override
+    public List<DiagnosticPage> getAllServicesNoOrWithResponseUrlsError(boolean showResponse){
+        if(showResponse)
+            return getAllServicesWithResponseUrlsError();
+        return getAllServicesNoResponseUrlsError();
+    }
+
+    @Override
     public List<DiagnosticPage> findAllByAllServicesNoOrResponse(String sector, String division, String healthtest, boolean showResponse) {
+        List<DiagnosticPage> listAllServicesNoOrResponse = new ArrayList<>();
+        listAllServicesNoOrResponse.add(getDiagnosticPageShowResponseUrlsError(showResponse));
         final List<DiagnosticPage> listAllHealthtest = getListShowResponse(showResponse).stream()
                 .filter(service -> service
                         .getSector()
@@ -93,22 +152,28 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
                                 .getHealthtest()
                                 .equals(healthtest))
                 .collect(Collectors.toList());
-        return listAllHealthtest;
+        listAllServicesNoOrResponse.addAll(listAllHealthtest);
+        return listAllServicesNoOrResponse;
     }
 
     @Override
     public List<DiagnosticPage> findAllServicesBySectorNoOrResponse(String sector, boolean showResponse) {
+        List<DiagnosticPage> listAllServicesBySectorNoOrResponse = new ArrayList<>();
+        listAllServicesBySectorNoOrResponse.add(getDiagnosticPageShowResponseUrlsError(showResponse));
         final List<DiagnosticPage> listAllSector = getListShowResponse(showResponse).stream()
                 .filter(service -> service
                         .getSector()
                         .equals(sector))
                 .collect(Collectors.toList());
-        return listAllSector;
+        listAllServicesBySectorNoOrResponse.addAll(listAllSector);
+        return listAllServicesBySectorNoOrResponse;
     }
 
     @Override
     public List<DiagnosticPage> findAllServicesBySectorDivisionNoOrResponse(String sector, String division, boolean showResponse) {
-        final List<DiagnosticPage> listAllDivision = getListShowResponse(showResponse).stream()
+        List<DiagnosticPage> listAllServicesBySectorDivisionNoOrResponse = new ArrayList<>();
+        listAllServicesBySectorDivisionNoOrResponse.add(getDiagnosticPageShowResponseUrlsError(showResponse));
+        final List<DiagnosticPage> listAllSectorDivision = getListShowResponse(showResponse).stream()
                 .filter(service -> service
                         .getSector()
                         .equals(sector) &&
@@ -116,6 +181,13 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
                                 .getDivision()
                                 .equals(division))
                 .collect(Collectors.toList());
-        return listAllDivision;
+        listAllServicesBySectorDivisionNoOrResponse.addAll(listAllSectorDivision);
+        return listAllServicesBySectorDivisionNoOrResponse;
+    }
+
+
+    public static void main(String[] args) {
+        DiagnosticPageImpl dp2 = new DiagnosticPageImpl();
+        System.out.println(dp2.getAllServicesWithResponse());
     }
 }

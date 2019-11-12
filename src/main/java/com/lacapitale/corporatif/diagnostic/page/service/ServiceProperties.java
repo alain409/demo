@@ -2,6 +2,7 @@ package com.lacapitale.corporatif.diagnostic.page.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.lacapitale.corporatif.diagnostic.page.DiagnosticPageConfig;
 import com.lacapitale.corporatif.diagnostic.page.model.DiagnosticPage;
 import org.slf4j.Logger;
@@ -26,6 +27,8 @@ public class ServiceProperties {
 
     public List<DiagnosticPage> getFileJson(){
         ObjectMapper mapper = new ObjectMapper();
+
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
         config = new DiagnosticPageConfig();
 

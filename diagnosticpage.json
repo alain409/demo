@@ -9,7 +9,8 @@
     "validationType": "REGEX",
     "validationValue": "<td\\s*class\\s*=\\s*.icon-echec..\\s*>+",
     "validationStatusHealthCheck": false,
-    "validationStateHealthCheck": "ERROR"
+    "validationStateHealthCheck": "ERROR",
+    "response": "responseBody"
   },
   {
     "name": "espaceconseiller",
@@ -21,7 +22,8 @@
     "validationType": "REGEX",
     "validationValue": "<td\\s*class\\s*=\\s*.icon-succes..\\s*>+",
     "validationStatusHealthCheck": true,
-    "validationStateHealthCheck": "SUCCES"
+    "validationStateHealthCheck": "SUCCES",
+    "response": "responseBody"
   },
   {
     "name": "ec-epargne",
@@ -33,7 +35,8 @@
     "validationType": "REGEX",
     "validationValue": "<test.sante.ok.>",
     "validationStatusHealthCheck": true,
-    "validationStateHealthCheck": "SUCCES"
+    "validationStateHealthCheck": "SUCCES",
+    "response": "responseBody"
   },
   {
     "name": "cap-courtier",
@@ -45,7 +48,8 @@
     "validationType": "FINDSTRING",
     "validationValue": "OK",
     "validationStatusHealthCheck": true,
-    "validationStateHealthCheck": "SUCCES"
+    "validationStateHealthCheck": "SUCCES",
+    "response": "responseBody"
   },
   {
     "name": "svc-corp-pubpost",
@@ -57,7 +61,8 @@
     "validationType": "REGEX",
     "validationValue": "statu[st].:.UP",
     "validationStatusHealthCheck": true,
-    "validationStateHealthCheck": "SUCCES"
+    "validationStateHealthCheck": "SUCCES",
+    "response": "responseBody"
   },
   {
     "name": "clic",
@@ -69,7 +74,8 @@
     "validationType": "REGEX",
     "validationValue": "statu[st].:.OK",
     "validationStatusHealthCheck": true,
-    "validationStateHealthCheck": "SUCCES"
+    "validationStateHealthCheck": "SUCCES",
+    "response": "responseBody"
   },
   {
     "name": "vie-presentation",
@@ -81,6 +87,7 @@
     "validationType": "FINDSTRING",
     "validationValue": "test-sante",
     "validationStatusHealthCheck": true,
-    "validationStateHealthCheck": "SUCCES"
+    "validationStateHealthCheck": "SUCCES",
+    "response": "responseBody"
   }
 ]

@@ -28,12 +28,12 @@ public class DiagnosticPageService {
     //Méthode qui match url http
     public boolean findMatchUrlHttpService(String url) {
         boolean matchUrl = false;
-        Pattern pattern = Pattern.compile("http:.");
+        Pattern pattern = Pattern.compile("^(http:\\/\\/www\\.|http:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$");
         Matcher matcher = pattern.matcher(url);
         while (matcher.find()) {
-            if (matcher.group().trim().length() != 0) {
-                matchUrl = true;
-            }
+            //  if (matcher.group().trim().length() != 0) {
+            matchUrl = true;
+            //  }
         }
         return matchUrl;
     }
@@ -41,12 +41,12 @@ public class DiagnosticPageService {
     //Méthode qui match url https
     public boolean findMatchUrlHttpsService(String url) {
         boolean matchUrl = false;
-        Pattern pattern = Pattern.compile("https:.");
+        Pattern pattern = Pattern.compile("^(https:\\/\\/www\\.|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$");
         Matcher matcher = pattern.matcher(url);
         while (matcher.find()) {
-            if (matcher.group().trim().length() != 0) {
-                matchUrl = true;
-            }
+            // if (matcher.group().trim().length() != 0) {
+            matchUrl = true;
+            // }
         }
         return matchUrl;
     }
@@ -104,18 +104,17 @@ public class DiagnosticPageService {
 
     //Méthode pour matcher les validations value Regex  des tests
     public String checkRegexResponse(DiagnosticPage dp){
-        String stringRegexMatchValue = dp.getValidationValue();
+        String stringRegexMatchValue = "";
         String validationResponse =
                 getStatusUrlHttpOrHttpsService(dp.getUrl()).toString();
-        String patternString = dp.getValidationValue();
-        Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(dp.getValidationValue(), Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(validationResponse);
-          while (matcher.find()) {
+        while (matcher.find()) {
             // if (matcher.matches()) {
-              stringRegexMatchValue = matcher.group().trim();
+            stringRegexMatchValue = matcher.group().trim();
             // }
-             }
-       return stringRegexMatchValue;
+        }
+        return stringRegexMatchValue;
     }
 
     //Méthode pour matcher les validations value FindString des tests
@@ -141,26 +140,42 @@ public class DiagnosticPageService {
     }
 
     //Méthode pour désigner quelle action à appliquer sur les validations type pour obtenir les validations values
-   public String getMatchValidationValue(DiagnosticPage diagnosticPage){
+    public String getMatchValidationValue(DiagnosticPage diagnosticPage){
         String resultValidationValue = "";
-       if(diagnosticPage.getValidationType() == "REGEX"){
-           resultValidationValue = checkRegexResponse(diagnosticPage);
-       }else if(diagnosticPage.getValidationType() == "FINDSTRING"){
-           resultValidationValue = checkFindStringResponse(diagnosticPage);
-       }
-       return resultValidationValue;
+        if(diagnosticPage.getValidationType().equalsIgnoreCase("REGEX")){
+            resultValidationValue = checkRegexResponse(diagnosticPage);
+        }else if(diagnosticPage.getValidationType().equalsIgnoreCase("FINDSTRING")){
+            resultValidationValue = checkFindStringResponse(diagnosticPage);
+        }
+        return resultValidationValue;
     }
 
     //Méthode remplir la liste des url des tests en fail
-    public List<String> getUrlsHealthCheckError(DiagnosticPage diagnosticPage) {
+   /* public List<String> getUrlsHealthCheckError(DiagnosticPage diagnosticPage) {
         List<String> listUrlsError = new ArrayList<>();
-         String urlError = diagnosticPage.getUrl();
-            if(diagnosticPage.getValidationStateHealthCheck() == "ERROR"){
-                listUrlsError.add(urlError);
-            }
+        DiagnosticPageError diagnosticPageError = new DiagnosticPageError();
+        String urlError = diagnosticPage.getUrl();
+        if(diagnosticPage.getValidationStateHealthCheck()=="ERROR"){
+            diagnosticPageError.getListUrlsError().add(urlError);
+           // diagnosticPage.setDiagnosticPageError(diagnosticPageError);
+        }
+        return listUrlsError;
+    }*/
+
+    public List<String> getListUrlsHealthCheckError(DiagnosticPage dp) {
+        List<String> listUrlsError = new ArrayList<>();
+        String urlError = dp.getUrl();
+        if(dp.getValidationStateHealthCheck().equalsIgnoreCase("ERROR")){
+            listUrlsError.add(urlError);
+        }
         return listUrlsError;
     }
 
+    public String getStatusResultDiagnosticHealthCheck(DiagnosticPage dp){
+        if(!getListUrlsHealthCheckError(dp).isEmpty())
+            return "FAIL";
+        return "SUCCES";
+    }
 
     //Pour obtenir un code de réponse pour la requête Http
    /* public int getCodeResponseUrlHttpOrHttpsService(String url) {
@@ -183,12 +198,12 @@ public class DiagnosticPageService {
 
     public static void main(String[] args) {
         DiagnosticPageService diagnosticPageService = new DiagnosticPageService();
-      //  DiagnosticPage diagnosticPage = new DiagnosticPage();
-      //  System.out.println(diagnosticPageService.getUrlsHealthCheckError(diagnosticPage));
+        DiagnosticPage diagnosticPage = new DiagnosticPage();
+        //  System.out.println(diagnosticPageService.getUrlsHealthCheckError(diagnosticPage));
 
-       // DiagnosticPageImpl diagnosticPage1 = new DiagnosticPageImpl();
-      //  String url = diagnosticPage.getUrl();
-     //   System.out.println(diagnosticPageService.checkRegexResponse(diagnosticPage));
+        // DiagnosticPageImpl diagnosticPage1 = new DiagnosticPageImpl();
+        //  String url = diagnosticPage.getUrl();
+        //   System.out.println(diagnosticPageService.checkRegexResponse(diagnosticPage));
         // System.out.println(diagnosticPageService.getStatusValidation());
         //System.out.println(diagnosticPageService.validateStatusResponse("FINDSTRING", "https://espaceconseiller.lacapitale.com/epargne/testSante"));
     }

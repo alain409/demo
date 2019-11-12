@@ -24,7 +24,6 @@ public class DiagPageController {
                                                @RequestParam(value ="division", required = false) String divService,
                                                @RequestParam(value ="healthtest",required = false) String healthtestService,
                                                @RequestParam(value ="showResponse",required = false) boolean showResService) {
-
         if((secService != null) && (divService == null) && (healthtestService == null)) {
             return diagnosticPageDao.findAllServicesBySectorNoOrResponse(secService, showResService);
         }else if((secService != null) && (divService != null) && (healthtestService == null)){
@@ -32,7 +31,6 @@ public class DiagPageController {
         }else if((secService != null) && (divService != null) && (healthtestService != null)) {
             return diagnosticPageDao.findAllByAllServicesNoOrResponse(secService, divService, healthtestService, showResService);
         }
-        return diagnosticPageDao.getAllServicesNoResponse();
+        return diagnosticPageDao.getAllServicesNoOrWithResponseUrlsError(showResService);
     }
-
 }
