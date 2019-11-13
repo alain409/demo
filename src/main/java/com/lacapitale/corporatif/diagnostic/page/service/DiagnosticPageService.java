@@ -128,12 +128,33 @@ public class DiagnosticPageService {
         return stringFindStringMatchValue;
     }
 
+    //Pour obtenir un code de réponse pour la requête Http
+    public int checkHttpCodeCodeResponse(DiagnosticPage dp) {
+        int code = 0;
+        try {
+            if (findMatchUrlHttpService(dp.getUrl())) {
+                HttpURLConnection httpClient =
+                        (HttpURLConnection) new URL(dp.getUrl()).openConnection();
+                code = httpClient.getResponseCode();
+            } else if (findMatchUrlHttpsService(dp.getUrl())) {
+                HttpsURLConnection httpsClient =
+                        (HttpsURLConnection) new URL(dp.getUrl()).openConnection();
+                code = httpsClient.getResponseCode();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return code;
+    }
+
     //Méthode pour obtenir validationStatusHealthCheck (un booléen sur tests)
     public boolean executeHealthToCheckService(DiagnosticPage diagnosticPage){
         boolean boolValidationValue = false;
         if(checkRegexResponse(diagnosticPage) != null ){
             boolValidationValue = true;
         }else if(checkFindStringResponse(diagnosticPage) != null){
+            boolValidationValue = true;
+        }else if(checkHttpCodeCodeResponse(diagnosticPage) != 0){
             boolValidationValue = true;
         }
         return boolValidationValue;
@@ -146,36 +167,49 @@ public class DiagnosticPageService {
             resultValidationValue = checkRegexResponse(diagnosticPage);
         }else if(diagnosticPage.getValidationType().equalsIgnoreCase("FINDSTRING")){
             resultValidationValue = checkFindStringResponse(diagnosticPage);
+        }else if(diagnosticPage.getValidationType().equalsIgnoreCase("HTTPCODE")){
+           // resultValidationValue = checkHttpCodeCodeResponse(diagnosticPage);
         }
         return resultValidationValue;
     }
 
     //Méthode remplir la liste des url des tests en fail
-   /* public List<String> getUrlsHealthCheckError(DiagnosticPage diagnosticPage) {
-        List<String> listUrlsError = new ArrayList<>();
-        DiagnosticPageError diagnosticPageError = new DiagnosticPageError();
-        String urlError = diagnosticPage.getUrl();
-        if(diagnosticPage.getValidationStateHealthCheck()=="ERROR"){
-            diagnosticPageError.getListUrlsError().add(urlError);
-           // diagnosticPage.setDiagnosticPageError(diagnosticPageError);
+  public List<String> getListUrlsHealthCheckWithResponseError() {
+         DiagnosticPageImpl diagnosticPageImpl = new DiagnosticPageImpl();
+        List<String> listUrlsWithResponseError = new ArrayList<>();
+        String urlError = "";
+        for (DiagnosticPage dp : diagnosticPageImpl.getAllServicesWithResponse()) {
+            if(dp.getValidationStateHealthCheck().equalsIgnoreCase("ERROR")){
+                urlError = new String(dp.getUrl());
+                listUrlsWithResponseError.add(urlError);
+            }
         }
-        return listUrlsError;
-    }*/
-
-    public List<String> getListUrlsHealthCheckError(DiagnosticPage dp) {
-        List<String> listUrlsError = new ArrayList<>();
-        String urlError = dp.getUrl();
-        if(dp.getValidationStateHealthCheck().equalsIgnoreCase("ERROR")){
-            listUrlsError.add(urlError);
-        }
-        return listUrlsError;
+        return listUrlsWithResponseError;
     }
 
-    public String getStatusResultDiagnosticHealthCheck(DiagnosticPage dp){
-        if(!getListUrlsHealthCheckError(dp).isEmpty())
+    public List<String> getListUrlsHealthCheckNoResponseError() {
+        DiagnosticPageImpl diagnosticPageImpl = new DiagnosticPageImpl();
+        List<String> listUrlsNoResponseError = new ArrayList<>();
+        String urlError = "";
+        for (DiagnosticPage dp : diagnosticPageImpl.getAllServicesNoResponse()) {
+            if(dp.getValidationStateHealthCheck().equalsIgnoreCase("ERROR")){
+                urlError = new String(dp.getUrl());
+                listUrlsNoResponseError.add(urlError);
+            }
+        }
+        return listUrlsNoResponseError;
+    }
+
+    public String getStatusResultDiagnosticHealthCheck(){
+        if((!getListUrlsHealthCheckWithResponseError().isEmpty()) ||
+                (!getListUrlsHealthCheckNoResponseError().isEmpty()))
             return "FAIL";
         return "SUCCES";
     }
+
+
+
+
 
     //Pour obtenir un code de réponse pour la requête Http
    /* public int getCodeResponseUrlHttpOrHttpsService(String url) {
@@ -195,6 +229,9 @@ public class DiagnosticPageService {
         }
         return code;
     }*/
+
+
+
 
     public static void main(String[] args) {
         DiagnosticPageService diagnosticPageService = new DiagnosticPageService();

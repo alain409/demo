@@ -13,6 +13,19 @@
     "response": "responseBody"
   },
   {
+    "name": "svc-patate-douce",
+    "sector": "SERVCORP",
+    "division": "SerCorp",
+    "type": "Diagnostic",
+    "url": "",
+    "healthtest": "patate",
+    "validationType": "HTTPCODE",
+    "validationValue": "200",
+    "validationStatusHealthCheck": true,
+    "validationStateHealthCheck": "SUCCES",
+    "response": "responseBody"
+  },
+  {
     "name": "espaceconseiller",
     "sector": "IND",
     "division": "AssuInd",

@@ -40,7 +40,7 @@ public class DiagnosticPage {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String validationValue;
 
-    //@JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private boolean validationStatusHealthCheck;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -195,6 +195,8 @@ public class DiagnosticPage {
     @Override
     public String toString() {
         return "DiagnosticPage{" +
+                ", resultDiagnosticHealthCheck='" + resultDiagnosticHealthCheck + '\'' +
+                ", listUrlsHealthCheckError='" + listUrlsHealthCheckError + '\'' +
                 ", name='" + name + '\'' +
                 ", sector='" + sector + '\'' +
                 ", division='" + division + '\'' +

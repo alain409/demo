@@ -64,7 +64,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
 
     @Override
     public List<DiagnosticPage> getAllServicesWithResponse() {
-       return findAllServicesWithResponse();
+        return findAllServicesWithResponse();
     }
 
     @Override
@@ -72,32 +72,19 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
         return findAllServicesNoResponse();
     }
 
+
     @Override
     public DiagnosticPage findAllServicesWithResponseWithUrlsError() {
         diagnosticPageService = new DiagnosticPageService();
-        DiagnosticPage diagnosticPageWithResponseError = null;
-
-
-      for (DiagnosticPage dp : findAllServicesWithResponse()
-        ) {
-            diagnosticPageWithResponseError = new DiagnosticPage(
-                    diagnosticPageService.getStatusResultDiagnosticHealthCheck(dp),
-                    diagnosticPageService.getListUrlsHealthCheckError(dp));
-        }
-        return diagnosticPageWithResponseError;
+            return new DiagnosticPage(diagnosticPageService.getStatusResultDiagnosticHealthCheck(),
+                                       diagnosticPageService.getListUrlsHealthCheckWithResponseError());
     }
 
     @Override
     public DiagnosticPage findAllServicesNoResponseWithUrlsError() {
         diagnosticPageService = new DiagnosticPageService();
-        DiagnosticPage diagnosticPageNoResponseError = null;
-        for (DiagnosticPage dp : findAllServicesNoResponse()
-        ) {
-            diagnosticPageNoResponseError = new DiagnosticPage(
-                    diagnosticPageService.getStatusResultDiagnosticHealthCheck(dp),
-                    diagnosticPageService.getListUrlsHealthCheckError(dp));
-        }
-        return diagnosticPageNoResponseError;
+            return new DiagnosticPage(diagnosticPageService.getStatusResultDiagnosticHealthCheck(),
+                           diagnosticPageService.getListUrlsHealthCheckNoResponseError());
     }
 
     @Override
@@ -188,6 +175,6 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
 
     public static void main(String[] args) {
         DiagnosticPageImpl dp2 = new DiagnosticPageImpl();
-        System.out.println(dp2.getAllServicesWithResponse());
+       // System.out.println(dp2.findAllServicesWithResponseForUrlsError());
     }
 }
