@@ -1,5 +1,18 @@
 [
   {
+    "name": "svc-cagp-hztx",
+    "sector": "DSC",
+    "division": "ServHorizontaux",
+    "type": "Diagnostic",
+    "url": "https://services-horizontaux.capitale.qc.ca/horizontaux-notification/app-info/health",
+    "healthtest": "notification",
+    "validationType": "REGEX",
+    "validationValue": "^(statu[st])|(statu[st])?\\s*.\\s*.\\s*.\\s*UP",
+    "validationStatusHealthCheck": true,
+    "validationStateHealthCheck": "SUCCES",
+    "response": "responseBody"
+  },
+  {
     "name": "espaceconseiller",
     "sector": "IND",
     "division": "AssuInd",
@@ -7,7 +20,7 @@
     "url": "https://s02-devl-espaceconseiller.web.lacapitale.com/espaceconseiller/test-sante",
     "healthtest": "espConseillerFail",
     "validationType": "REGEX",
-    "validationValue": "<td\\s*class\\s*=\\s*.icon-echec..\\s*>+",
+    "validationValue": "^(<\\s*td\\s*class\\s*=\\s*.\\s*icon-echec\\s*.\\s*.\\s*>+)|(<\\s*td\\s*class\\s*=\\s*.\\s*icon-echec\\s*.\\s*.\\s*>+)",
     "validationStatusHealthCheck": false,
     "validationStateHealthCheck": "ERROR",
     "response": "responseBody"
@@ -33,7 +46,7 @@
     "url": "https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante",
     "healthtest": "espConseiller",
     "validationType": "REGEX",
-    "validationValue": "<td\\s*class\\s*=\\s*.icon-succes..\\s*>+",
+    "validationValue": "^(<\\s*td\\s*class\\s*=\\s*.\\s*icon-succes\\s*.\\s*.\\s*>+)|(<\\s*td\\s*class\\s*=\\s*.\\s*icon-succes\\s*.\\s*.\\s*>+)",
     "validationStatusHealthCheck": true,
     "validationStateHealthCheck": "SUCCES",
     "response": "responseBody"
@@ -46,7 +59,7 @@
     "url": "https://espaceconseiller.lacapitale.com/epargne/testSante",
     "healthtest": "ecEpargne",
     "validationType": "REGEX",
-    "validationValue": "<test.sante.ok.>",
+    "validationValue": "^(<\\s*test.sante.ok\\s*.\\s*>)|(<\\s*test.sante.ok\\s*.\\s*>)",
     "validationStatusHealthCheck": true,
     "validationStateHealthCheck": "SUCCES",
     "response": "responseBody"
@@ -72,7 +85,7 @@
     "url": "http://svc-corp-pubpost.capitale.qc.ca/publipostage/health",
     "healthtest": "pubPost",
     "validationType": "REGEX",
-    "validationValue": "statu[st].:.UP",
+    "validationValue": "^(statu[st])|(statu[st])?\\s*.\\s*.\\s*.\\s*UP",
     "validationStatusHealthCheck": true,
     "validationStateHealthCheck": "SUCCES",
     "response": "responseBody"
@@ -85,7 +98,7 @@
     "url": "https://clic.capitale.qc.ca/clic-webapp/clic/diagnostic",
     "healthtest": "clic",
     "validationType": "REGEX",
-    "validationValue": "statu[st].:.OK",
+    "validationValue": "^(statu[st])|(statu[st])?\\s*.\\s*.\\s*.\\s*OK",
     "validationStatusHealthCheck": true,
     "validationStateHealthCheck": "SUCCES",
     "response": "responseBody"

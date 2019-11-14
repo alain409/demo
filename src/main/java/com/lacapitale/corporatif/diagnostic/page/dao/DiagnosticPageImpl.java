@@ -17,12 +17,14 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     DiagnosticPageService diagnosticPageService;
 
     @Override
+    //La méthode principale qui appèlle le fichier Json
     public List<DiagnosticPage> getAllDiagnosticPageModel() {
         serviceProperties = new ServiceProperties();
         return serviceProperties.getFileJson();
     }
 
     @Override
+    //Récupère tous les tests sans le détail de la réponse
     public List<DiagnosticPage> findAllServicesNoResponse() {
         List<DiagnosticPage> listValueResultNoResponse = new ArrayList<>();
         diagnosticPageService = new DiagnosticPageService();
@@ -43,6 +45,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Récupère tous les tests avec le détail de la réponse
     public List<DiagnosticPage> findAllServicesWithResponse() {
         List<DiagnosticPage> listValueResultWithResponse = new ArrayList<>();
         diagnosticPageService = new DiagnosticPageService();
@@ -63,17 +66,20 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Appel de la méthode qui récupère les tests avec le détail de la réponse
     public List<DiagnosticPage> getAllServicesWithResponse() {
         return findAllServicesWithResponse();
     }
 
     @Override
+    //Appel de la méthode qui récupère les tests sans le détail de la réponse
     public List<DiagnosticPage> getAllServicesNoResponse() {
         return findAllServicesNoResponse();
     }
 
 
     @Override
+    //Récupére l'objet DiagnosticPage qui contient la liste des urls des tests(avec le détail de réponse) en erreur
     public DiagnosticPage findAllServicesWithResponseWithUrlsError() {
         diagnosticPageService = new DiagnosticPageService();
             return new DiagnosticPage(diagnosticPageService.getStatusResultDiagnosticHealthCheck(),
@@ -81,6 +87,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Récupére l'objet DiagnosticPage qui contient la liste des urls des tests(sans le détail de réponse) en erreur
     public DiagnosticPage findAllServicesNoResponseWithUrlsError() {
         diagnosticPageService = new DiagnosticPageService();
             return new DiagnosticPage(diagnosticPageService.getStatusResultDiagnosticHealthCheck(),
@@ -88,6 +95,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Appel global des tests(avec détail de la réponse) et la liste des urls des tests en erreur
     public List<DiagnosticPage> getAllServicesWithResponseUrlsError() {
         List<DiagnosticPage> globalListServicesWithResponseUrlsError = new ArrayList<>();
         globalListServicesWithResponseUrlsError.add(findAllServicesWithResponseWithUrlsError());
@@ -96,6 +104,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Appel global des tests(sans détail de la réponse) et la liste des urls des tests en erreur
     public List<DiagnosticPage> getAllServicesNoResponseUrlsError() {
         List<DiagnosticPage> globalListServicesNoResponseUrlsError = new ArrayList<>();
         globalListServicesNoResponseUrlsError.add(findAllServicesNoResponseWithUrlsError());
@@ -104,6 +113,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Récupère la liste des tests dépendement du paramètre de sortie showResponse(vraie ou faux)
     public List<DiagnosticPage> getListShowResponse(boolean showResponse) {
         if (showResponse)
             return getAllServicesWithResponse();
@@ -111,6 +121,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Récupère l'objet DiagnosticPage dépendement du paramètre de sortie showResponse(vraie ou faux)
     public DiagnosticPage getDiagnosticPageShowResponseUrlsError(boolean showResponse) {
         if (showResponse)
             return findAllServicesWithResponseWithUrlsError();
@@ -118,6 +129,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Récupère la liste glogal des tests plus la liste des urls des tests en erreur, dépendement du paramètre de sortie showResponse(vraie ou faux)
     public List<DiagnosticPage> getAllServicesNoOrWithResponseUrlsError(boolean showResponse){
         if(showResponse)
             return getAllServicesWithResponseUrlsError();
@@ -125,6 +137,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Récupère la liste qui filtre les tests par sector, division et healthtest en sortie
     public List<DiagnosticPage> findAllByAllServicesNoOrResponse(String sector, String division, String healthtest, boolean showResponse) {
         List<DiagnosticPage> listAllServicesNoOrResponse = new ArrayList<>();
         listAllServicesNoOrResponse.add(getDiagnosticPageShowResponseUrlsError(showResponse));
@@ -144,6 +157,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Récupère la liste qui filtre les tests par sector en sortie
     public List<DiagnosticPage> findAllServicesBySectorNoOrResponse(String sector, boolean showResponse) {
         List<DiagnosticPage> listAllServicesBySectorNoOrResponse = new ArrayList<>();
         listAllServicesBySectorNoOrResponse.add(getDiagnosticPageShowResponseUrlsError(showResponse));
@@ -157,6 +171,7 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
     }
 
     @Override
+    //Récupère la liste qui filtre les tests par sector et division en sortie
     public List<DiagnosticPage> findAllServicesBySectorDivisionNoOrResponse(String sector, String division, boolean showResponse) {
         List<DiagnosticPage> listAllServicesBySectorDivisionNoOrResponse = new ArrayList<>();
         listAllServicesBySectorDivisionNoOrResponse.add(getDiagnosticPageShowResponseUrlsError(showResponse));
@@ -170,11 +185,5 @@ public class DiagnosticPageImpl implements com.lacapitale.corporatif.diagnostic.
                 .collect(Collectors.toList());
         listAllServicesBySectorDivisionNoOrResponse.addAll(listAllSectorDivision);
         return listAllServicesBySectorDivisionNoOrResponse;
-    }
-
-
-    public static void main(String[] args) {
-        DiagnosticPageImpl dp2 = new DiagnosticPageImpl();
-       // System.out.println(dp2.findAllServicesWithResponseForUrlsError());
     }
 }

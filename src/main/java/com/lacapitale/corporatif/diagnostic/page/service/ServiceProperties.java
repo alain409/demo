@@ -43,7 +43,6 @@ public class ServiceProperties {
         logger.info("nom du répertoire : " + diagnosticPageFilename);
 
         try {
-
             File fileInputStream = resource.getFile();
             List<DiagnosticPage> listDiagnosticPages =
                     mapper.readValue(new FileInputStream(String.valueOf(fileInputStream)), new TypeReference<List<DiagnosticPage>>(){});
@@ -57,7 +56,6 @@ public class ServiceProperties {
         }
         return listValueResult;
     }
-
     public  ServiceProperties()
     {
     }

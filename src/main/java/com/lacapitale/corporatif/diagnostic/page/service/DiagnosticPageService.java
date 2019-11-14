@@ -129,22 +129,24 @@ public class DiagnosticPageService {
     }
 
     //Pour obtenir un code de réponse pour la requête Http
-    public int checkHttpCodeCodeResponse(DiagnosticPage dp) {
+    public String checkHttpCodeCodeResponse(DiagnosticPage dp) {
         int code = 0;
         try {
             if (findMatchUrlHttpService(dp.getUrl())) {
                 HttpURLConnection httpClient =
                         (HttpURLConnection) new URL(dp.getUrl()).openConnection();
+                if(dp.getValidationValue().equalsIgnoreCase(String.valueOf(httpClient.getResponseCode())))
                 code = httpClient.getResponseCode();
             } else if (findMatchUrlHttpsService(dp.getUrl())) {
                 HttpsURLConnection httpsClient =
                         (HttpsURLConnection) new URL(dp.getUrl()).openConnection();
+                if(dp.getValidationValue().equalsIgnoreCase(String.valueOf(httpsClient.getResponseCode())))
                 code = httpsClient.getResponseCode();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return code;
+        return String.valueOf(code);
     }
 
     //Méthode pour obtenir validationStatusHealthCheck (un booléen sur tests)
@@ -154,7 +156,7 @@ public class DiagnosticPageService {
             boolValidationValue = true;
         }else if(checkFindStringResponse(diagnosticPage) != null){
             boolValidationValue = true;
-        }else if(checkHttpCodeCodeResponse(diagnosticPage) != 0){
+        }else if(checkHttpCodeCodeResponse(diagnosticPage) != null){
             boolValidationValue = true;
         }
         return boolValidationValue;
@@ -168,7 +170,7 @@ public class DiagnosticPageService {
         }else if(diagnosticPage.getValidationType().equalsIgnoreCase("FINDSTRING")){
             resultValidationValue = checkFindStringResponse(diagnosticPage);
         }else if(diagnosticPage.getValidationType().equalsIgnoreCase("HTTPCODE")){
-           // resultValidationValue = checkHttpCodeCodeResponse(diagnosticPage);
+            resultValidationValue = checkHttpCodeCodeResponse(diagnosticPage);
         }
         return resultValidationValue;
     }
@@ -207,10 +209,6 @@ public class DiagnosticPageService {
         return "SUCCES";
     }
 
-
-
-
-
     //Pour obtenir un code de réponse pour la requête Http
    /* public int getCodeResponseUrlHttpOrHttpsService(String url) {
         int code = 0;
@@ -230,13 +228,10 @@ public class DiagnosticPageService {
         return code;
     }*/
 
-
-
-
     public static void main(String[] args) {
         DiagnosticPageService diagnosticPageService = new DiagnosticPageService();
         DiagnosticPage diagnosticPage = new DiagnosticPage();
-        //  System.out.println(diagnosticPageService.getUrlsHealthCheckError(diagnosticPage));
+ //System.out.println(diagnosticPageService.getCodeResponseUrlHttpOrHttpsService("https://espaceconseiller.lacapitale.com/espaceconseiller/test-sante"));
 
         // DiagnosticPageImpl diagnosticPage1 = new DiagnosticPageImpl();
         //  String url = diagnosticPage.getUrl();

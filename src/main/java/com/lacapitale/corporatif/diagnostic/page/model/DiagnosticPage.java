@@ -65,14 +65,7 @@ public class DiagnosticPage {
         this.response = response;
     }
 
-    public DiagnosticPage(String resultDiagnosticHealthCheck, List<String> listUrlsHealthCheckError/*,String name,
-                          @JsonInclude(JsonInclude.Include.NON_NULL) String sector, @JsonInclude(JsonInclude.Include.NON_NULL) String division,
-                          @JsonInclude(JsonInclude.Include.NON_NULL) String type, @JsonInclude(JsonInclude.Include.NON_NULL) String url,
-                          @JsonInclude(JsonInclude.Include.NON_NULL) String healthtest,
-                          @JsonInclude(JsonInclude.Include.NON_NULL) String validationType, @JsonInclude(JsonInclude.Include.NON_NULL) String validationValue,
-                          @JsonInclude(JsonInclude.Include.NON_NULL) boolean validationStatusHealthCheck,
-                          @JsonInclude(JsonInclude.Include.NON_NULL) String validationStateHealthCheck,
-                          @JsonInclude(JsonInclude.Include.NON_NULL)StringBuffer response*/) {
+    public DiagnosticPage(String resultDiagnosticHealthCheck, List<String> listUrlsHealthCheckError) {
         this.resultDiagnosticHealthCheck = resultDiagnosticHealthCheck;
         this.listUrlsHealthCheckError = listUrlsHealthCheckError;
     }
